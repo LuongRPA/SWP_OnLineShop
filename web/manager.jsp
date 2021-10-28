@@ -4,6 +4,9 @@
     Author     : sony
 --%>
 
+<%@page import="models.Cart"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -84,7 +87,7 @@
             #mainContainer {
                 width: 1200px;
                 height:100%;
-                margin: 40px auto;
+                margin: 60px auto;
                 padding: 20px 5px;
                 background: #FFFACD;
                 boder:10px solid black;
@@ -94,12 +97,30 @@
                 boder: 10px solid pink;
                 text-align: center;
             }
+
+            .btnSubmit {
+                background-color: #FFE4C4;
+                border-radius: 5px;
+            }
+            .search-name {
+                color: red;
+                font-size: 20px;
+            }
+            .search {
+                margin-bottom: 25px;
+            }
         </style>
 
         <%
             HttpSession s = request.getSession(true);
             String us = (String) s.getAttribute("username");
             String admin = (String) s.getAttribute("admin");
+
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
+
+            if (cart_list != null) {
+                request.setAttribute("cart_list", cart_list);
+            }
         %>
     </head>
 
@@ -125,13 +146,19 @@
 
                 <% if (us != null) {%>
                 <li ><a  href="about" >About</a></li>
-                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="userinfo">Account</a></li>
 
                 <% if (admin != null) {%>
-                <li ><a  href="manager">Manager account</a></li>
+                <li ><a  href="ListPostServlet">Manager Post</a></li>
+                <li ><a  href="OrderList">Manager Order</a></li>
+                <li ><a  href="manager" style="color:green;">Manager account</a></li>
                 <li ><a  href="manageritem">Manager Product</a></li>
+                <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="cart">My Order</a></li><%}%>
+                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="shop">Shop</a></li>
+                <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="myorder">My Order</a></li><%}%>
                 <li ><a  href="logout">Logout</a></li>
                     <%} else {%>
                 <li ><a  href="about">About </a></li>
@@ -148,25 +175,40 @@
         <section id="mainContainer">
             <div class="about" >
                 <h2 style="font-size:50px;font-family:Time New Roman">MANAGE ACCOUNT</h2>
-                <table style="width: 50%;height: 100%;" border="1px solid black" align="center">
-                    <tr>
-                        
-                        <td style="font-size:20px;"> <b>Username</b></td>
-                        <td style="font-size:20px;"> <b>Email</b></td>
-                        <td style="font-size:20px;"> <b>Phone</b></td>
-                        <td style="font-size:20px;"><b>Manager</b></td>
-                    </tr>
-                    <c:forEach items="${list}" var="x">
-                        
+
+                <!-- Search -->
+                <p class="search-name">Tìm tên người dùng</p>
+
+                <div class="search">
+                    <form action="manager">
+                        <input class="user" type="text" maxlength="30" placeholder="Người dùng..." value="${user_search}" name="user_search"/>
+                        <button type="submit" class="btnSubmit">Tìm kiếm</button>
+                    </form>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>${x.username}</td>
-                            <td>${x.email}</td>
-                            <td>${x.phone}</td>
-                            <td><a href="manager?user=${x.username}">Delete</a></td>
-                            
+                            <th scope="col">Username</th>
                         </tr>
-                    </c:forEach>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${list}" var="x">
+
+                            <tr>
+                                <td>${x.username}</td>
+                                <td><a href="manager?user=${x.username}">Delete</a></td>
+                                <td><a href="userinfo?userSelected=${x.username}">Detail</a></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
                 </table>
+
+                <div class="page">
+                    <p><c:forEach begin="1" end="${maxPage}" var="i">
+                            <a href="manager?txtPage=${i}">${i}</a>
+                        </c:forEach></p>
+                </div>
             </div>
         </section>
         <!-- end page -->
