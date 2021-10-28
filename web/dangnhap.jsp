@@ -22,7 +22,7 @@ and open the template in the editor.
         body {
             font-family: 'Mukta', sans-serif;
             background: url("src/dangnhap.png")      no-repeat ;
-            background-size: 1500px 800px;
+            background-size: 1400px 800px;
         }
  
         .text-center {
