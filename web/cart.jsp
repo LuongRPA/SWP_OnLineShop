@@ -1,19 +1,19 @@
 <%-- 
-    Document   : thank
-    Created on : Aug 30, 2019, 1:06:41 AM
-    Author     : sony
+    Document   : cart
+    Created on : Oct 23, 2021, 10:43:34 AM
+    Author     : HP
 --%>
 
+<%@page import="context.DBContext"%>
+<%@page import="dao.DAO"%>
 <%@page import="models.Cart"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="models.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>LapTopGaming</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">       
         <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">    
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
@@ -81,35 +81,41 @@
             }
 
             /* Content */
-
             #mainContainer {
                 width: 1200px;
                 height:100%;
                 margin: 60px auto;
                 padding: 20px 5px;
-                background: #FFFACD;
+                background: #f1f1f1;
                 boder:10px solid black;
             }
-            /* about */
+
             div.about {
                 boder: 10px solid pink;
                 text-align: center;
             }
-        </style>
 
+            /* cart */
+
+        </style>
         <%
             HttpSession s = request.getSession(true);
             String us = (String) s.getAttribute("username");
             String admin = (String) s.getAttribute("admin");
 
             ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
+            ArrayList<Cart> cartProduct = null;
 
             if (cart_list != null) {
+                DAO dao = new DAO(new DBContext());
+                cartProduct = dao.getCartProducts(cart_list);
+                int total = dao.getTotalCartPrice(cart_list);
+
                 request.setAttribute("cart_list", cart_list);
+                request.setAttribute("total", total);
             }
         %>
     </head>
-
     <body>
         <!-- START HEADER -->
         <div id="header" style="width: 1000px; height: 100px; margin: 0 auto; background-color:#FFFFFF; border: none solid #8C0209;">
@@ -142,8 +148,8 @@
                 <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
                 <li ><a  href="ListPostServlet">Post</a></li>
-                <li ><a  href="shop" style="color:green;">Shop</a></li>
-                <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="mycart" style="color:green;">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="shop">Shop</a></li>
                 <li ><a  href="myorder">My Order</a></li><%}%>
                 <li ><a  href="logout">Logout</a></li>
                     <%} else {%>
@@ -154,22 +160,55 @@
                 <li ><a  href="contact">Contact</a></li>
                     <%}%>
             </ul>
-        </section>	
+        </section>		
         <!-- END MENU -->
 
-        <!-- START CONTENT PAGE -->
         <section id="mainContainer">
             <div class="about" >
+                <div class="container">
+                    <div class="d-flex py-3">
+                        <h3>Total Price: ${total > 0? total:0}</h3>
+                        <a class="mx-3 btn btn-primary" href="CheckOutServlet">Thanh toán</a>
+                    </div>
 
-                <div style="margin-top:20px;font-family:Candara;padding-left:210px;width:800px;font-size:20px;color:#556B2F;line-height:2em;">
-                    You have successfully placed your order. <br> Thank you !!   We will contact you soon
-                </div>
-                <div style="margin-top:50px;">
-                    <img src="src/camon.jpg" style="width:350px;height:330px;"></img>
+                    <table class="table table-loght">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Buy Now</th>
+                                <th scope="col">Cancel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (cart_list != null) {
+                                    for (Cart c : cartProduct) {
+                            %>
+                            <tr>
+                                <td><%= c.getProductName()%></td>
+                                <td><%= c.getProductPrice()%></td>
+                                <td>
+                                    <form action="OrderNowServlet" method="post" class="form-inline">
+                                        <input type="hidden" name="price" value="<%= c.getProductPrice()%>" class="form-input" />
+                                        <input type="hidden" name="id" value="<%= c.getProductID()%>" class="form-input" />
+                                        <div class="form-group d-flex justify-content-between">
+                                            <a class="btn btn-sm btn-incre" href="QuantityIncDecServlet?action=dec&id=<%= c.getProductID()%>"><i class="fas fa-minus-square"></i></a>
+                                            <input type="text" name="quantity" class="form-control" value="<%= c.getQuantity()%>" readonly />
+                                            <a class="btn btn-sm btn-incre" href="QuantityIncDecServlet?action=inc&id=<%= c.getProductID()%>"><i class="fas fa-plus-square"></i></a>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm">Mua ngay</button>
+                                    </form>
+                                </td>
+                                <td><a class="btn btn-sm btn-danger" href="RemoveFromCartServlet?id=<%= c.getProductID()%>">Hủy</a></td>
+                            </tr>
+                            <%
+                                    }
+                                }%>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
-        <!-- end page -->
 
         <!-- start Footer-->
         <div id="footer" style="height: 250px; margin: 0 auto;padding: 0 20px;
@@ -182,16 +221,14 @@
                     <a href="https://www.facebook.com/long.chu.71653"><img src="src/fb.png" style="width:65px; height:65px;"></img>
 
                         </p>
-
-
                         <p style="float:right;margin:40px;text-align:left;font-size:15px;margin-right:190px;">
                             <b>Our Story</b><br /><br />
                             <span style="color:#556B2F;">LapTopGaming not only brings customers the latest and highest quality genuine products, but <br/>
                                 also a place for customers to experience products comfortably under the advice of trained staff and technicians. repertoires. . The difference of LapTopGaming is also separate after-sales policies such as Gold Warranty: 
-                                <br />  Warranty for both drops, water damage, 1-for-1 policy within 30 days <br/> 
-
+                                <br />  Warranty for both drops, water damage, 1-for-1 policy within 30 days <br/>   
                             </span>
                             </div>
                             <!-- end page -->
+
                             </body>
                             </html>
