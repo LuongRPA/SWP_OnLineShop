@@ -54,22 +54,14 @@ public class addproduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         int price = Integer.parseInt(request.getParameter("price"));
+        int laptopInfoId = Integer.parseInt(request.getParameter("laptopInfoID"));
         String image = request.getParameter("image");
         DBContext db = new DBContext();
         DAO dao = new DAO(db);
-        if (dao.checkProduct(id) != 0) {
-            String ms = id + " exitsed!!!";
-            request.setAttribute("error", ms);
-            request.getRequestDispatcher("addproduct.jsp").
-                    forward(request, response);
-        } else {
-
-            dao.addProduct(id, name, price, image);
-            response.sendRedirect("manageritem");
-        }
+        dao.addProduct(name, price, image, laptopInfoId);
+        response.sendRedirect("manageritem");
     }
 
     /**

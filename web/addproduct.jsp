@@ -4,6 +4,7 @@
     Author     : sony
 --%>
 
+<%@page import="models.Cart"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,6 +14,14 @@
         <title>LapTopGaming</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">       
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
         <style>
             body {
@@ -77,7 +86,7 @@
             #mainContainer {
                 width: 1200px;
                 height: 100%;
-                margin: 40px auto;
+                margin: 60px auto;
                 padding: 20px 5px;
                 background: #FFFACD;
                 boder:10px solid black;
@@ -140,6 +149,12 @@
             HttpSession s = request.getSession(true);
             String us = (String) s.getAttribute("username");
             String admin = (String) s.getAttribute("admin");
+
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
+
+            if (cart_list != null) {
+                request.setAttribute("cart_list", cart_list);
+            }
         %>
     </head>
 
@@ -164,12 +179,19 @@
             <ul class="main_nav">
                 <% if (us != null) {%>
                 <li ><a  href="about" >About</a></li>
-                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="userinfo">Account</a></li>
+
                 <% if (admin != null) {%>
+                <li ><a  href="ListPostServlet">Manager Post</a></li>
+                <li ><a  href="OrderList">Manager Order</a></li>
                 <li ><a  href="manager">Manager account</a></li>
                 <li ><a  href="manageritem">Manager Product</a></li>
+                <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="cart">My Order</a></li><%}%>
+                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="myorder">My Order</a></li><%}%>
                 <li ><a  href="logout">Logout</a></li>
                     <%} else {%>
                 <li ><a  href="about">About </a></li>
@@ -190,14 +212,14 @@
                 <div class="container">
                     <form action="addproduct" method="POST">
                         <h2>Add new Product </h2>
-                        <label>New ID</label>       
-                        <input type="text" name="id" required placeholder="ProductID.."/>
                         <label>New Name</label>
                         <input type="text" name="name" required placeholder="ProductName.."/>
                         <label>New Price</label>
                         <input type="text" name="price" required placeholder="ProductPrice.."/>
                         <label>New Image</label>
                         <input type="text" name="image" required placeholder="ProductImage.."/>
+                        <label>Laptop Info ID</label>
+                        <input type="number" name="laptopInfoID" required placeholder="Laptop info id.."/> <br>
                         <input type="submit" value="Add Product">
 
                     </form>

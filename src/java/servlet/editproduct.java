@@ -9,6 +9,7 @@ import context.DBContext;
 import dao.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -83,6 +84,7 @@ public class editproduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            Date now = new Date();
             DBContext db = new DBContext();
             DAO dao = new DAO(db);
 
@@ -91,8 +93,10 @@ public class editproduct extends HttpServlet {
             request.setAttribute("product", p);
             String name = request.getParameter("name");
             int price = Integer.parseInt(request.getParameter("price"));
+            int laptopInfoId = Integer.parseInt(request.getParameter("laptopInfoId"));
             String image = request.getParameter("image");
-            Product product = new Product(id2, name, price, image);
+            
+            Product product = new Product(id2, name, price, image, now, now, laptopInfoId);
             dao.UpdateProduct(product, id2);
 
             response.sendRedirect("manageritem");
