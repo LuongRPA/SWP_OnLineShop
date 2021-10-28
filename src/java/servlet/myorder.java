@@ -28,18 +28,28 @@ public class myorder extends HttpServlet {
         DBContext db = new DBContext();
         DAO dao = new DAO(db);
         HttpSession session = request.getSession();
-        String username = (String)session.getAttribute("username");
-        List<Order> list = dao.getHistory(username);
+        String username = (String) session.getAttribute("username");
 
+        int rowCount = dao.countHistory(username);
+        String page_raw = request.getParameter("txtPage");
+        page_raw = (page_raw == null) ? "1" : page_raw;
+        int pageIndex = Integer.parseInt(page_raw);
+
+        //lay max page
+        int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0);
+
+        List<Order> list = dao.getHistory(pageIndex, username);
         request.setAttribute("list", list);
+        request.setAttribute("maxPage", maxPage);
+        request.setAttribute("pageIndex", pageIndex);
         request.getRequestDispatcher("myorder.jsp").forward(request, response);
-        
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     @Override
