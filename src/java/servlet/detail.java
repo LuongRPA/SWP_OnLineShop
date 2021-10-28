@@ -51,12 +51,11 @@ public class detail extends HttpServlet {
             response.sendRedirect("login");
             return;
         }
-        int orderID = dao.getLastOrderID() + 1;
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int pID = Integer.parseInt(request.getParameter("pid"));
         int price = Integer.parseInt(request.getParameter("price"));
         int totalPrice = price * quantity;
-        dao.Buy(orderID, quantity, totalPrice, pID, username);
+        dao.Buy(quantity, totalPrice, pID, username);
         request.getRequestDispatcher("thank.jsp").forward(request, response);
     }
     @Override
