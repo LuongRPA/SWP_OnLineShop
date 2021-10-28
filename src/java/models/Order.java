@@ -9,32 +9,35 @@ package models;
  *
  * @author sony
  */
-public class Order extends Product{
+public class Order extends Product {
+
     private int orderID;
     private int quantity;
     private int totalPrice;
     private Users user;
+    private String username;
 
-    public Order(int orderID, String ProductName, int ProductPrice ,int quantity, int totalPrice) {
+    public Order(int orderID,
+            String ProductName,
+            int ProductPrice,
+            int quantity,
+            int totalPrice,
+            String username) {
         super(ProductName, ProductPrice);
         this.orderID = orderID;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
-        
+        this.username = username;
     }
 
     @Override
     public String toString() {
-        
+
         return "Order{" + "orderID=" + orderID + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", user=" + user + '}';
     }
 
-    
-   
-    
     public Order() {
     }
-    
 
     public int getOrderID() {
         return orderID;
@@ -67,15 +70,13 @@ public class Order extends Product{
     public void setUser(Users user) {
         this.user = user;
     }
-    
+
     public String getUsername() {
-        return getUser().getUsername();
-    }
-    
-    public void setUsername(String username) {
-        username = getUsername();
+        return username;
     }
 
-    
-    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 }
