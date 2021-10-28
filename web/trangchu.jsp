@@ -4,6 +4,7 @@
     Author     : sony
 --%>
 
+<%@page import="models.Cart"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,6 +14,14 @@
         <title>LapTopGaming</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">       
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <style>
             body {
                 margin-top: 20px;
@@ -72,72 +81,32 @@
             #mainContainer {
                 width: 1200px;
                 height: 100%;
-                margin: 40px auto;
+                margin: 60px auto;
                 padding: 20px 5px;
                 background: #FFFFFF;
             }
-            div.para1 {
-                padding-bottom: 0px;
-                line-height: 200%;
-                padding:50px;
-                background-color:#FFFFFF;
-                width:550px;
-                height:500px;
-            }
-            div.para1 h2 {
-                color:#000000;
-                text-align:left;
-                font-size:45px;
-                margin:100px;
-                line-height:50px;
-            }
-            div.para1 h3{
-                color:#556B2F;
-                margin-top:-50px;
-            }
-            div.para1 p{
-                border:1px ridge white;
-                text-align:center;
-                width:120px; height:50px;
-                margin-left:300px;
 
-
-                background-color:#FFE4C4;
-                font-size:17px;
-
-            }
-            div.para1 a {
-                color: #000000;
-                width: 100px;
-                padding: 10px;
-                text-decoration: none;
-                display: block;
+            .mg-top-20 {
+                margin-top: 20px;
             }
 
-            div.para2 {
-                margin:10px; 
-                display:inline;
+            .mg-bot-20 {
+                margin-bottom: 20px;
             }
-
-            div.boderPara2 {
-                margin:15px;
-                font-size: 30px;
-                font-family: Arial;
-            }
-
-            div.boderPara2 a{
-                text-decoration : none;
-                color: #20B2AA;
-            }
-
 
         </style>
     </head>
     <body>
         <%
             HttpSession s = request.getSession(true);
-            String us = (String) s.getAttribute("username");
-            String admin = (String) s.getAttribute("admin");
+            String us = (String) session.getAttribute("username");
+            String admin = (String) session.getAttribute("admin");
+
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
+
+            if (cart_list != null) {
+                request.setAttribute("cart_list", cart_list);
+            }
         %>
         <!-- START HEADER -->
         <div id="header" style="width: 1000px; height: 100px; margin: 0 auto; background-color:#FFFFFF; border: none solid #8C0209;">
@@ -146,7 +115,7 @@
                     <span style=""><a href="home" style="text-decoration: none;color:#DAA520">LapTop</a> </span><span style=""><a href="home" style="text-decoration: none;color:#000000">Gaming</a></span>
                 </h1>
                 <p style="float:left;margin-top: 70px;font-weight: 900px;margin-left: 5px;word-spacing: 2px;color:black;font-size:15px;">
-                    LapTop Store
+                    LapTopGaming Store
                 </p>
             </div>
         </div>
@@ -154,62 +123,67 @@
 
         <!-- START MENU -->
         <section id="menuContaniner">
-            
+
             <ul class="main_nav">
                 <li ><a  href="about">About </a></li>
-                <li ><a  href="shop" style="color:green;">Shop</a></li>
                     <% if (us != null) {%>
-
-               
+                <li ><a  href="userinfo">Account</a></li>
 
                 <% if (admin != null) {%>
+                <li ><a  href="ListPostServlet">Manager Post</a></li>
+                <li ><a  href="OrderList">Manager Order</a></li>
                 <li ><a  href="manager">Manager account</a></li>
                 <li ><a  href="manageritem">Manager Product</a></li>
+                <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="cart">My Order</a></li><%}%>
+                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="shop">Shop</a></li>
+                <li ><a  href="myorder">My Order</a></li><%}%>
                 <li ><a  href="logout">Logout</a></li>
-                 <li ><a  href="contact">Contact</a></li>
                     <%} else {%>
-
+                <li ><a  href="shop">Shop</a></li>
                 <li ><a  href="login">Login</a></li>
                 <li ><a  href="register">Register</a></li>
-                 <li ><a  href="contact">Contact</a></li>
+                <li ><a  href="contact">Contact</a></li>
                     <%}%>
-                
+
             </ul>
         </section>	
         <!-- END MENU -->
         <!-- START CONTENT PAGE -->
         <section id="mainContainer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="para1">
+                            <h2><span style="color: #32CD32; font-weight: bold">LapTop</span> Store</br>FOR EVERYONE.</br></h2>
+                            <h3 style="color: #ff4faf">We bring the best LapTop for you.</br>Browse our signature products and get your next order at your door now.
+                            </h3>
+                            <div class="mg-bot-20">
+                                <a class="btn btn-warning" href="about"> OUR STORY </a>
+                                <a class="btn btn-success" href="FeedbackServlet"> Gửi Feedback </a>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="para1">
+                </div>
 
-                <h2><span style="color:#32CD32">LapTop</span> Store</br>FOR EVERYONE.</br></h2>
-                <h3>We bring the best LapTop for you.</br>Browse our signature products and get your next order at your door now.
-                </h3>
-                <p><a href="about"> OUR STORY </a></P>
+                <div class="row">
+                    <jsp:include page="LaptopSlider.jsp" />
+                </div>
+
+                <div class="row mg-top-20">
+                    <div class="col-sm">
+                        <div class="boderPara2">	
+                            <span><a class="btn btn-success" href="shop">ORDER ONLINE HERE</a></span>
+                            <span><a class="btn btn-warning" href="about">MORE ABOUT US</a></span>
+                            <span><a class="btn btn-primary" href="edit">MEMBERSHIP</a></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <img src="src/nen.jpg" style="float:right;margin-top:-450px;height:320px;">
-            <!-- PARA 2 -->
-            <div class="para2">
-                <span style="padding-right:12px;">
-                    <img src="src/nen2.jpg"style="width:390px;height:350px;">
-                </span>
-                <span style="padding-right:12px;">
-                    <img src="src/nen2.jpg"style="width:390px;height:350px;">
-                </span>
-                <span style="padding-right:10px;">
-                    <img src="src/nen1.jpg" style="width:390px;height:350px;">
-                </span>
-                <span>
-                    <img src="src/nen3.jpg"  style="width:390px;height:350px;">
-                </span>
-            </div>  
-            <div class="boderPara2">	
-                <span style="float:left;padding-left:30px;"><a href="shop">ORDER ONLINE HERE</a></span>
-                <span style="float:center;padding-left:130px;"><a href="about">MORE ABOUT US</a></span>
-                <span style="float:right;padding-right:80px;"><a href="edit">MEMBERSHIP</a></span>
-            </div>
+
         </section>
         <!-- end page -->
         <!-- start Footer-->

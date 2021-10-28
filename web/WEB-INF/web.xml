@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>MyFilter</filter-name>
+        <filter-class>filter.MyFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>homepage</servlet-name>
         <servlet-class>servlet.homepage</servlet-class>
@@ -44,6 +52,82 @@
         <servlet-name>myorder</servlet-name>
         <servlet-class>servlet.myorder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>userinfo</servlet-name>
+        <servlet-class>servlet.userinfo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editform</servlet-name>
+        <servlet-class>servlet.editform</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>servlet.AddToCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>mycart</servlet-name>
+        <servlet-class>servlet.mycart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuantityIncDecServlet</servlet-name>
+        <servlet-class>servlet.QuantityIncDecServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveFromCartServlet</servlet-name>
+        <servlet-class>servlet.RemoveFromCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderNowServlet</servlet-name>
+        <servlet-class>servlet.OrderNowServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <servlet-class>servlet.CheckOutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <servlet-class>servlet.FeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackListServlet</servlet-name>
+        <servlet-class>servlet.FeedbackListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteFeedback</servlet-name>
+        <servlet-class>servlet.DeleteFeedback</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailFeedback</servlet-name>
+        <servlet-class>servlet.DetailFeedback</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderList</servlet-name>
+        <servlet-class>servlet.OrderList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetail</servlet-name>
+        <servlet-class>servlet.OrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPostServlet</servlet-name>
+        <servlet-class>servlet.AddPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListPostServlet</servlet-name>
+        <servlet-class>servlet.ListPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeletePostServlet</servlet-name>
+        <servlet-class>servlet.DeletePostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FormAddPostServlet</servlet-name>
+        <servlet-class>servlet.FormAddPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostDetailServlet</servlet-name>
+        <servlet-class>servlet.PostDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>homepage</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -86,7 +170,83 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>myorder</servlet-name>
-        <url-pattern>/cart</url-pattern>
+        <url-pattern>/myorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>userinfo</servlet-name>
+        <url-pattern>/userinfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editform</servlet-name>
+        <url-pattern>/editform</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>mycart</servlet-name>
+        <url-pattern>/mycart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuantityIncDecServlet</servlet-name>
+        <url-pattern>/QuantityIncDecServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveFromCartServlet</servlet-name>
+        <url-pattern>/RemoveFromCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderNowServlet</servlet-name>
+        <url-pattern>/OrderNowServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <url-pattern>/CheckOutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <url-pattern>/FeedbackServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackListServlet</servlet-name>
+        <url-pattern>/FeedbackListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFeedback</servlet-name>
+        <url-pattern>/DeleteFeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailFeedback</servlet-name>
+        <url-pattern>/DetailFeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderList</servlet-name>
+        <url-pattern>/OrderList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetail</servlet-name>
+        <url-pattern>/OrderDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPostServlet</servlet-name>
+        <url-pattern>/AddPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListPostServlet</servlet-name>
+        <url-pattern>/ListPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePostServlet</servlet-name>
+        <url-pattern>/DeletePostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FormAddPostServlet</servlet-name>
+        <url-pattern>/FormAddPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDetailServlet</servlet-name>
+        <url-pattern>/PostDetailServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
