@@ -3,6 +3,10 @@
     Created on : Aug 28, 2019, 9:57:04 AM
     Author     : sony
 --%>
+<%@page import="context.DBContext"%>
+<%@page import="dao.DAO"%>
+<%@page import="models.LaptopInfo"%>
+<%@page import="models.Cart"%>
 <%@page import="models.Product"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Users"%>
@@ -10,10 +14,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <title>LapTopGaming</title>
+        <title>LapTopGaming</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">       
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <style>
             body {
                 margin-top: 20px;padding: 0;
@@ -77,7 +87,7 @@
             #mainContainer {
                 width: 1200px;
                 height:100%;
-                margin: 40px auto;
+                margin: 60px auto;
                 padding: 20px 5px;
                 background: #FFFACD;
                 boder:10px solid black;
@@ -87,38 +97,35 @@
                 boder: 10px solid pink;
                 text-align: center;
             }
-            input[type=submit] {
-                background-color: #4CAF50;
-                color: white;
-                padding: 12px 20px;
-                border: none;
-                width: 100px;
-                cursor: pointer;
-            }
-
-            input[type=submit]:hover {
-                background-color: #45a049;
-            }
-            
         </style>
 
         <%
             HttpSession s = request.getSession(true);
             String us = (String) s.getAttribute("username");
             String admin = (String) s.getAttribute("admin");
-            Product p = (Product)request.getAttribute("product");
+            Product p = (Product) request.getAttribute("product");
+
+            DAO dao = new DAO(new DBContext());
+
+            LaptopInfo laptopInfo = dao.getLaptopInfo(p.getLaptopInfoID());
+
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
+
+            if (cart_list != null) {
+                request.setAttribute("cart_list", cart_list);
+            }
         %>
     </head>
 
     <body>
         <!-- START HEADER -->
-          <div id="header" style="width: 1000px; height: 100px; margin: 0 auto; background-color:#FFFFFF; border: none solid #8C0209;">
+        <div id="header" style="width: 1000px; height: 100px; margin: 0 auto; background-color:#FFFFFF; border: none solid #8C0209;">
             <div>
                 <h1 style="float:left; margin-left:15px; font-size:40px;">
                     <span style=""><a href="home" style="text-decoration: none;color:#DAA520">LapTop</a> </span><span style=""><a href="home" style="text-decoration: none;color:#000000">Gaming</a></span>
                 </h1>
                 <p style="float:left;margin-top: 70px;font-weight: 900px;margin-left: 5px;word-spacing: 2px;color:black;font-size:15px;">
-                   LapTopGaming Store
+                    LapTopGaming Store
                 </p>
             </div>
         </div>
@@ -132,13 +139,19 @@
 
                 <% if (us != null) {%>
                 <li ><a  href="about" >About</a></li>
-                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="userinfo">Account</a></li>
 
                 <% if (admin != null) {%>
+                <li ><a  href="ListPostServlet">Manager Post</a></li>
+                <li ><a  href="OrderList">Manager Order</a></li>
                 <li ><a  href="manager">Manager account</a></li>
                 <li ><a  href="manageritem">Manager Product</a></li>
+                <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="cart">My Order</a></li><%}%>
+                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="myorder">My Order</a></li><%}%>
                 <li ><a  href="logout">Logout</a></li>
                     <%} else {%>
                 <li ><a  href="about">About </a></li>
@@ -158,17 +171,62 @@
                 <div style="margin-top:50px;">
                     <img src="img/<%=p.getProductImage()%>" style="width:370px;height:400px;"></img>
                 </div>
-                    <div style="font-size:20px;color:#556B2F;line-height:2em;">Price:<span style="color: crimson;font-size: 30px;"> <%=p.getProductPrice()%></span> </div>
-                
+                <div style="font-size:20px;color:#556B2F;line-height:2em;">Price:<span style="color: crimson;font-size: 30px;"> <%=p.getProductPrice()%></span> </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>CPU</td>
+                                        <td><%= laptopInfo.getCpu()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>RAM</td>
+                                        <td><%= laptopInfo.getRam()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Screen</td>
+                                        <td><%= laptopInfo.getScreen()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Graphic</td>
+                                        <td><%= laptopInfo.getGraphic()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hard Drive</td>
+                                        <td><%= laptopInfo.getHardDrive()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weigh</td>
+                                        <td><%= laptopInfo.getWeigh()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Origin</td>
+                                        <td><%= laptopInfo.getOrigin()%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Debut Year</td>
+                                        <td><%= laptopInfo.getDebutYear()%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
                 <div> 
-                    <form method="post" action="detail?pid=<%=p.getProductID()%>&price=<%=p.getProductPrice() %>" >
+                    <form method="post" action="detail?pid=<%=p.getProductID()%>&price=<%=p.getProductPrice()%>" >
                         <label style="margin-top:20px;font-size:20px;color:#556B2F;line-height:2em;">
                             Choose Quantity:</label> <input style="width: 80px;" type="number" name="quantity" value="1" /> 
                         <br><p>  
-                        <input type="submit" value="BUY"/>
+                            <a href="AddToCart?id=<%=p.getProductID()%>" class="btn btn-primary">Add to cart</a>
+                            <input class="btn btn-danger" type="submit" value="BUY"/>
                     </form>
                 </div>
-                
+
 
             </div>
         </section>
@@ -177,10 +235,10 @@
         <!-- start Footer-->
         <div id="footer" style="height: 250px; margin: 0 auto;padding: 0 20px;
              background-color: #D3D3D3; border: none solid #8C0209;">
-         <p style="float:left; margin:70px; font-size:60px;"> <span style="color:#DAA520">LapTop</span><span style="color:#000000">Gaming</span>
-                </p>
+            <p style="float:left; margin:70px; font-size:60px;"> <span style="color:#DAA520">LapTop</span><span style="color:#000000">Gaming</span>
+            </p>
 
-              <p style="float:left;margin-top:170px;margin-left:-350px;">
+            <p style="float:left;margin-top:170px;margin-left:-350px;">
                 <a href="https://www.instagram.com/clongcena11/"><img src="src/ins.png" style="width:65px; height:65px;"></img>
                     <a href="https://www.facebook.com/long.chu.71653"><img src="src/fb.png" style="width:65px; height:65px;"></img>
 
@@ -191,7 +249,7 @@
                             <span style="color:#556B2F;">LapTopGaming not only brings customers the latest and highest quality genuine products, but <br/>
                                 also a place for customers to experience products comfortably under the advice of trained staff and technicians. repertoires. . The difference of LapTopGaming is also separate after-sales policies such as Gold Warranty: 
                                 <br />  Warranty for both drops, water damage, 1-for-1 policy within 30 days <br/>   
-                             
+
                             </span>
                             </div>
                             <!-- end page -->
