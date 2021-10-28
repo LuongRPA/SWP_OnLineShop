@@ -1,3 +1,4 @@
+<%@page import="models.Cart"%>
 <%@page import="java.util.List"%>
 `x<%-- 
     Document   : shop
@@ -88,7 +89,7 @@
             #mainContainer {
                 width: 1200px;
                 height:100%;
-                margin: 40px auto;
+                margin: 60px auto;
                 padding: 20px 5px;
                 background: #f1f1f1;
                 boder:10px solid black;
@@ -179,7 +180,11 @@
             String us = (String) s.getAttribute("username");
             String admin = (String) s.getAttribute("admin");
 
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
 
+            if (cart_list != null) {
+                request.setAttribute("cart_list", cart_list);
+            }
         %>
     </head>
 
@@ -205,13 +210,19 @@
 
                 <% if (us != null) {%>
                 <li ><a  href="about" >About</a></li>
-                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="userinfo">Account</a></li>
 
                 <% if (admin != null) {%>
+                <li ><a  href="ListPostServlet">Manager Post</a></li>
+                <li ><a  href="OrderList">Manager Order</a></li>
                 <li ><a  href="manager">Manager account</a></li>
-                <li ><a  href="manageritem">Manager Product</a></li>
+                <li ><a  href="manageritem" style="color:green;">Manager Product</a></li>
+                <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="cart">My Order</a></li><%}%>
+                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="shop">Shop</a></li>
+                <li ><a  href="myorder">My Order</a></li><%}%>
                 <li ><a  href="logout">Logout</a></li>
                     <%} else {%>
                 <li ><a  href="about">About </a></li>

@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import models.Product;
 
@@ -63,6 +64,10 @@ public class manageritem extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!isAdmin(request)) {
+            response.sendRedirect("home");
+        }
+        
         DBContext db = new DBContext();
         DAO dao = new DAO(db);
 
@@ -70,9 +75,16 @@ public class manageritem extends HttpServlet {
             int id_del = Integer.parseInt(request.getParameter("id_del"));
             dao.deleteByProductID(id_del);
         }
-        List<Product> list = dao.getAllProduct();
-        request.setAttribute("list", list);
-        request.getRequestDispatcher("managerproduct.jsp").forward(request, response);
+        List<Product> list = dao.getAllProduct(); // get
+        request.setAttribute("list", list); // truyen list vao manage
+        request.getRequestDispatcher("managerproduct.jsp").forward(request, response); 
+    }
+    
+    private boolean isAdmin(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String admin = (String) session.getAttribute("admin");
+        return admin != null;
     }
 
     /**
