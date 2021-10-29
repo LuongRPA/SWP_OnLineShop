@@ -4,16 +4,24 @@
     Author     : sony
 --%>
 
+<%@page import="models.Cart"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-      <title>LapTopGaming</title>
+        <title>LapTopGaming</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">       
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <style>
             body {
                 margin-top: 20px;padding: 0;    
@@ -77,7 +85,7 @@
             #mainContainer {
                 width: 1200px;
                 height: 100%;
-                margin: 40px auto;
+                margin: 60px auto;
                 padding: 20px 5px;
                 background: #FFFACD;
                 boder:10px solid black;
@@ -140,6 +148,12 @@
             HttpSession s = request.getSession(true);
             String us = (String) s.getAttribute("username");
             String admin = (String) s.getAttribute("admin");
+
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
+
+            if (cart_list != null) {
+                request.setAttribute("cart_list", cart_list);
+            }
         %>
     </head>
 
@@ -165,13 +179,19 @@
 
                 <% if (us != null) {%>
                 <li ><a  href="about" >About</a></li>
-                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="userinfo">Account</a></li>
 
                 <% if (admin != null) {%>
+                <li ><a  href="ListPostServlet">Manager Post</a></li>
+                <li ><a  href="OrderList">Manager Order</a></li>
                 <li ><a  href="manager">Manager account</a></li>
                 <li ><a  href="manageritem">Manager Product</a></li>
+                <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="cart">My Order</a></li><%}%>
+                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="myorder">My Order</a></li><%}%>
                 <li ><a  href="logout">Logout</a></li>
                     <%} else {%>
                 <li ><a  href="about">About </a></li>
@@ -202,6 +222,13 @@
 
                         <label>Phone</label>
                         <input type="text" value="${users.phone}">
+                        
+                        <label>Gender</label>
+                        <input type="text" value="${users.gender == 1 ? 'Nam' : 'Nữ'}">
+                        
+                        <label>address</label>
+                        <input type="text" value="${users.address}">
+                        
                         <br><br>
                         <h2>Change your information </h2>
                         <label>New Username</label>       
@@ -213,6 +240,14 @@
                         <label>New Phone</label>
                         <input type="text" name="phone" required placeholder="Phone.."/>
 
+                        <label>Gender</label> <br>
+                        <label>Nam</label>
+                        <input type="radio" id="male" name="gender" value="1" required>
+                        <label>Nữ</label>
+                        <input type="radio" id="female" name="gender" value="0"> <br> <br>
+
+                        <label>Address</label>
+                        <input type="text"  name="address" value="${users.address}" required placeholder="Your address..">
 
                         <input type="submit" value="Change & Save">
 
@@ -233,8 +268,8 @@
         <!-- start Footer-->
         <div id="footer" style="height: 250px; margin: 0 auto;padding: 0 20px;
              background-color: #D3D3D3; border: none solid #8C0209;">
-        <p style="float:left; margin:70px; font-size:60px;"> <span style="color:#DAA520">LapTop</span><span style="color:#000000">Gaming</span>
-                </p>
+            <p style="float:left; margin:70px; font-size:60px;"> <span style="color:#DAA520">LapTop</span><span style="color:#000000">Gaming</span>
+            </p>
 
             <p style="float:left;margin-top:170px;margin-left:-350px;">
                 <a href="https://www.instagram.com/clongcena11/"><img src="src/ins.png" style="width:65px; height:65px;"></img>

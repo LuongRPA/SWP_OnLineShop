@@ -57,12 +57,16 @@ public class edit extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        int gender = Integer.parseInt(request.getParameter("gender"));
+        String address = request.getParameter("address");
 
         Users us = new Users();
         us.setUsername(username);
         us.setPassword(password);
         us.setEmail(email);
         us.setPhone(phone);
+        us.setGender(gender);
+        us.setAddress(address);
 
         try {
             int result = dao.checkUserAccount(username, password);
