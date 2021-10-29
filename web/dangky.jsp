@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-     <title>LapTopGaming</title>
+        <title>LapTopGaming</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -143,13 +143,13 @@
 
     <body>
         <!-- START HEADER -->
-          <div id="header" style="width: 1000px; height: 100px; margin: 0 auto; background-color:#FFFFFF; border: none solid #8C0209;">
+        <div id="header" style="width: 1000px; height: 100px; margin: 0 auto; background-color:#FFFFFF; border: none solid #8C0209;">
             <div>
                 <h1 style="float:left; margin-left:15px; font-size:40px;">
                     <span style=""><a href="home" style="text-decoration: none;color:#DAA520">NP</a> </span><span style=""><a href="home" style="text-decoration: none;color:#000000">Gaming</a></span>
                 </h1>
                 <p style="float:left;margin-top: 70px;font-weight: 900px;margin-left: 5px;word-spacing: 2px;color:black;font-size:15px;">
-                   AirphoneStore
+                    AirphoneStore
                 </p>
             </div>
         </div>
@@ -164,6 +164,7 @@
                 <% if (us != null) {%>
                 <li ><a  href="about" >About</a></li>
                 <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="userinfo">Account</a></li>
 
                 <% if (admin != null) {%>
                 <li ><a  href="manager">Manager account</a></li>
@@ -204,6 +205,15 @@
                         <label>Phone</label>
                         <input type="text"  name="phone" value="${users.phone}" required placeholder="Your phone..">
 
+                        <label>Gender</label> <br>
+                        <label>Nam</label> 
+                        <input type="radio" id="male" name="gender" checked value="1"> 
+                        <label>Nữ</label>
+                        <input type="radio" id="female" name="gender" value="0"> <br> <br>
+                        
+                        <label>Address</label>
+                        <input type="text"  name="address" value="${users.address}" required placeholder="Your address..">
+
                         <input type="submit" value="Save">
 
                         <%
@@ -223,18 +233,18 @@
         <!-- start Footer-->
         <div id="footer" style="height: 250px; margin: 0 auto;padding: 0 20px;
              background-color: #D3D3D3; border: none solid #8C0209;">
-        <p style="float:left; margin:70px; font-size:60px;"> <span style="color:#DAA520">LapTop</span><span style="color:#000000">Gaming</span>
-                </p>
+            <p style="float:left; margin:70px; font-size:60px;"> <span style="color:#DAA520">LapTop</span><span style="color:#000000">Gaming</span>
+            </p>
             <p style="float:left;margin-top:170px;margin-left:-350px;">
                 <a href="https://www.instagram.com/clongcena11/"><img src="src/ins.png" style="width:65px; height:65px;"></img>
                     <a href="https://www.facebook.com/long.chu.71653"><img src="src/fb.png" style="width:65px; height:65px;"></img>
                         </p>
                         <p style="float:right;margin:40px;text-align:left;font-size:15px;margin-right:190px;">
                             <b>Our Story</b><br /><br />
-                             <span style="color:#556B2F;" payment service<br>LapTopGaming not only brings customers the latest and highest quality genuine products, but <br/>
+                            <span style="color:#556B2F;" payment service<br>LapTopGaming not only brings customers the latest and highest quality genuine products, but <br/>
                                 also a place for customers to experience products comfortably under the advice of trained staff and technicians. repertoires. . The difference of LapTopGaming is also separate after-sales policies such as Gold Warranty: 
                                 <br />  Warranty for both drops, water damage, 1-for-1 policy within 30 days <br/>
-                             
+
                             </span>
                             </div>
                             <!-- end page -->

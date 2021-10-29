@@ -36,12 +36,14 @@ public class dangky extends HttpServlet {
         String repPassword = request.getParameter("repassword");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        int gender = Integer.parseInt(request.getParameter("gender"));
         String errMess = null;
-         
-        Users user = new Users(username, password, email, phone );
-        
-        request.setAttribute("users", user); 
-        
+
+        Users user = new Users(username, password, email, phone, gender, address);
+
+        request.setAttribute("users", user);
+
         if (username == null || username.trim().equals("") || password == null || password.trim().equals("")) {
             errMess = "username and password must not be empty";
         } else if (!repPassword.equals(password)) {
@@ -55,7 +57,7 @@ public class dangky extends HttpServlet {
                 if (result != 0) {
                     errMess = "This username is already available. Please choose other username";
                 } else {
-                    dao.signUpAccount(username, password, email, phone);
+                    dao.signUpAccount(username, password, email, phone, gender, address);
                     errMess = "Your account has been created";
                 }
             } catch (Exception e) {
@@ -70,7 +72,7 @@ public class dangky extends HttpServlet {
             dispatcher.forward(request, response);
             return;
         }
-        
+
     }
 
     @Override
