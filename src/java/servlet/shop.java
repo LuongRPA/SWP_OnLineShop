@@ -32,13 +32,16 @@ public class shop extends HttpServlet {
             throws ServletException, IOException {
           processRequest(request, response);
         try {
+            String nameProduct = request.getParameter("nameProduct");
+            nameProduct = nameProduct == null ? "" : nameProduct.trim();
+            
             DBContext db = new DBContext();
             DAO dao = new DAO(db);
             HttpSession session = request.getSession();
             String username = (String) session.getAttribute("username");
             //-----------
             //dem so dong trong bang
-            int rowCount = dao.getCount();
+            int rowCount = dao.getCount(nameProduct);
             //----
             String page_raw = request.getParameter("txtPage");
             page_raw = (page_raw == null) ? "1" : page_raw;
@@ -47,8 +50,9 @@ public class shop extends HttpServlet {
             //lay max page
             int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0);
 
-            List<Product> list = dao.getListProduct(pageIndex);
+            List<Product> list = dao.getListProduct(pageIndex, nameProduct);
             request.setAttribute("listProduct", list);
+            request.setAttribute("nameProduct", nameProduct);
             request.setAttribute("maxPage", maxPage);
             request.setAttribute("pageIndex", pageIndex);
             request.getRequestDispatcher("shop.jsp").forward(request, response);

@@ -4,6 +4,7 @@
     Author     : sony
 --%>
 
+<%@page import="models.Cart"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="models.Product"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,6 +15,14 @@
         <title>LapTopGaming</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">       
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <style>
             body {
                 margin-top: 20px;padding: 0;
@@ -77,7 +86,7 @@
             #mainContainer {
                 width: 1200px;
                 height:100%;
-                margin: 40px auto;
+                margin: 60px auto;
                 padding: 20px 5px;
                 background: #f1f1f1;
                 boder:10px solid black;
@@ -161,6 +170,15 @@
                 list-style: none;
                 display: inline-block;
             }
+
+            .btnSubmit {
+                background-color: #FFE4C4;
+                border-radius: 5px;
+            }
+            .search-name {
+                color: red;
+                font-size: 20px;
+            }
         </style>
 
         <%
@@ -168,6 +186,12 @@
             String us = (String) s.getAttribute("username");
             String admin = (String) s.getAttribute("admin");
             ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("listProduct");
+
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
+
+            if (cart_list != null) {
+                request.setAttribute("cart_list", cart_list);
+            }
         %>
     </head>
 
@@ -193,13 +217,19 @@
 
                 <% if (us != null) {%>
                 <li ><a  href="about" >About</a></li>
-                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="userinfo">Account</a></li>
 
                 <% if (admin != null) {%>
+                <li ><a  href="ListPostServlet">Manager Post</a></li>
+                <li ><a  href="OrderList">Manager Order</a></li>
                 <li ><a  href="manager">Manager account</a></li>
                 <li ><a  href="manageritem">Manager Product</a></li>
+                <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="cart">My Order</a></li><%}%>
+                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <li ><a  href="shop" style="color:green;">Shop</a></li>
+                <li ><a  href="myorder">My Order</a></li><%}%>
                 <li ><a  href="logout">Logout</a></li>
                     <%} else {%>
                 <li ><a  href="about">About </a></li>
@@ -217,6 +247,22 @@
         <section id="mainContainer">
             <div class="about" >
                 <h2 style="font-size:45px;font-family:Time New Roman">SẢN PHẨM MÁY TÍNH XÁCH TAY CHÍNH HÃNG</h2>
+
+                <!-- Search -->
+                <p class="search-name">Tìm kiếm sản phẩm</p>
+
+                <div class="search">
+                    <form action="shop">
+                        <input class="nameProduct" required type="text" minlength="0" maxlength="10" placeholder="Tên sản phẩm..." value="${nameProduct}" name="nameProduct"/>
+                        <button type="submit" class="btnSubmit">Tìm kiếm</button>
+                    </form>
+                </div>
+
+                <% if (list.size() == 0) {
+                %>
+                <h2>Không tìm thấy sản phẩm</h2>
+                <%
+                    }%>
                 <div class="products">
                     <% for (Product p : list) {%>
                     <ul>
