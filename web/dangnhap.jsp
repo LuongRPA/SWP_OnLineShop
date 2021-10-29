@@ -21,8 +21,8 @@ and open the template in the editor.
     <style>
         body {
             font-family: 'Mukta', sans-serif;
-            background: url("src/dangnhap.png") no-repeat, center ;
-            background-size: cover;
+            background: url("src/dangnhap.png")      no-repeat ;
+            background-size: 1400px 800px;
         }
  
         .text-center {
