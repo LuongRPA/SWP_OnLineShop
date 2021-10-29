@@ -248,6 +248,9 @@
         <servlet-name>PostDetailServlet</servlet-name>
         <url-pattern>/PostDetailServlet</url-pattern>
     </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
     <session-config>
         <session-timeout>
             30
