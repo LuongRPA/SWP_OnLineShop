@@ -7,6 +7,7 @@ package servlet;
 
 import context.DBContext;
 import dao.DAO;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -62,7 +63,7 @@ public class userinfo extends HttpServlet {
             throws ServletException, IOException {
         String userSelected = request.getParameter("userSelected");
         DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        UserDAO dao = new UserDAO(db);
 
         // admin check info of user
         if (userSelected != null) {

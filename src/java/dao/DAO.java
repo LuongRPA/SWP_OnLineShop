@@ -40,99 +40,15 @@ public class DAO {
         }
     }
 
-    public Users getAccountByUsername(String username) {
-        try {
-            String sql = "SELECT * "
-                    + "  FROM [PRJ321E5_PROJECT].[dbo].[User]\n"
-                    + "WHERE [username] = ? ";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Users(rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getInt(5),
-                        rs.getString(6));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
+    
 
-    public int checkUserAccount(String username, String password) {
-        Users acc = getAccountByUsername(username);
-        if (acc == null) {
-            return 0; //Account is not available
-        } else if (!acc.getPassword().equals(password)) {
-            return 1; //Wrong password
-        } else {
-            return 2; //Account available
-        }
-    }
+    
 
-    public void signUpAccount(String username,
-            String password,
-            String email,
-            String phone,
-            int gender,
-            String address) {
-        try {
-            String sql = "insert into [PRJ321E5_PROJECT].[dbo].[User] values(?,?,?,?,?,?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ps.setString(3, email);
-            ps.setString(4, phone);
-            ps.setInt(5, gender);
-            ps.setString(6, address);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
+    
 
-    public void UpdateMethod(Users us, String oldusername) {
-        try {
-            String sql = "UPDATE [PRJ321E5_PROJECT].[dbo].[User]\n"
-                    + "   SET [username] = ?\n"
-                    + "      ,[password] = ?\n"
-                    + "      ,[email] = ?\n"
-                    + "      ,[phone] = ?\n"
-                    + "      ,[gender] = ?\n"
-                    + "      ,[address] = ?\n"
-                    + " WHERE [username] = ?";
+    
 
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, us.getUsername());
-            statement.setString(2, us.getPassword());
-            statement.setString(3, us.getEmail());
-            statement.setString(4, us.getPhone());
-            statement.setInt(5, us.getGender());
-            statement.setString(6, us.getAddress());
-            statement.setString(7, oldusername);
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void changePassword(String username, String newPassword) {
-        try {
-            String sql = "UPDATE [PRJ321E5_PROJECT].[dbo].[User]\n"
-                    + "   SET [password] = ?\n"
-                    + " WHERE [username] = ?";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, newPassword);
-            statement.setString(2, username);
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
 //    public void updateInfoUser(Users user) {
 //        try {

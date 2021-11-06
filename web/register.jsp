@@ -1,7 +1,13 @@
 <%-- 
-    Document   : dangky
-    Created on : Aug 18, 2019, 10:10:15 PM
-    Author     : sony
+/*
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               HoanglV                     first comment
+ */
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

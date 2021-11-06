@@ -29,8 +29,8 @@
         <servlet-class>servlet.contact</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>dangky</servlet-name>
-        <servlet-class>servlet.dangky</servlet-class>
+        <servlet-name>register</servlet-name>
+        <servlet-class>servlet.registerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>edit</servlet-name>
@@ -149,7 +149,7 @@
         <url-pattern>/contact</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>dangky</servlet-name>
+        <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
