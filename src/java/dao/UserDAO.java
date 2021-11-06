@@ -32,7 +32,6 @@ public class UserDAO {
     /**
      * create a connection to database. By calling getConnection from dbcontext
      *
-     * @param staffName the name of a staff. It is a
      * @param db dbcontext file to connect to database change the connection
      * attribute of class
      *

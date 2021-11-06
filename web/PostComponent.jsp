@@ -1,7 +1,13 @@
 <%-- 
-    Document   : PostComponent
-    Created on : Oct 26, 2021, 8:27:05 AM
-    Author     : HP
+/*
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               HoanglV                     first comment
+ */
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -1,12 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               HoanglV                        first comment
  */
 package servlet;
 
 import context.DBContext;
 import dao.DAO;
+import dao.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -19,8 +24,12 @@ import javax.servlet.http.HttpSession;
 import models.Post;
 
 /**
+ * this class receive data, handle add post request and forward to view
+
  *
- * @author HP
+ * <p>Bugs: (a list of bugs and other problems)
+ *
+ * @author (HoangLV
  */
 public class DeletePostServlet extends HttpServlet {
 
@@ -52,7 +61,7 @@ public class DeletePostServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles delete post request
      *
      * @param request servlet request
      * @param response servlet response
@@ -62,30 +71,36 @@ public class DeletePostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /*
+        *  admin only
+        */
         if (!isAdmin(request)) {
             response.sendRedirect("home");
         }
+        
         String titleSearch = request.getParameter("titleSearch") == null
                 ? ""
-                : request.getParameter("titleSearch");
+                : request.getParameter("titleSearch"); //get current search text
+        
+        
         String idPost = request.getParameter("id");
         DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        PostDAO dao = new PostDAO(db);
 
         if (idPost == null) {
-            response.sendRedirect("home");
+            response.sendRedirect("home"); // return home if wrong id
         } else {
-            dao.deletePostById(Integer.parseInt(idPost));
+            dao.deletePostById(Integer.parseInt(idPost));  //delete post
 
+            /*
+            * setup data for refresh page
+            */
             int rowCount = dao.countPost(titleSearch);
-
             String page_raw = request.getParameter("txtPage");
             page_raw = (page_raw == null) ? "1" : page_raw;
-
             int pageIndex = Integer.parseInt(page_raw);
             int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0);
-
-            List<Post> list = dao.getPosts(pageIndex, titleSearch);
+            List<Post> list = dao.getListPosts(pageIndex, titleSearch);
 
             request.setAttribute("list", list);
             request.setAttribute("titleSearch", titleSearch);
@@ -94,7 +109,12 @@ public class DeletePostServlet extends HttpServlet {
             request.getRequestDispatcher("ListPost.jsp").forward(request, response);
         }
     }
-
+    /**
+    * Check if current user is an administrator
+    *
+    * @param request servlet request
+    * @return true if is admin false if is not
+    */
     private boolean isAdmin(HttpServletRequest request) {
         HttpSession session = request.getSession();
 

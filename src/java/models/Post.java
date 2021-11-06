@@ -1,15 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               HoanglV                        first comment
  */
 package models;
 
 import java.util.Date;
 
 /**
+ * The class is the model for all posts of the system used to transfer data between classes and layers
  *
- * @author HP
+ * @author Le Viet Hoang
  */
 public class Post {
     private int id;

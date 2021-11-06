@@ -1,12 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               HoanglV                        first comment
  */
 package servlet;
 
 import context.DBContext;
-import dao.DAO;
+import dao.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -19,8 +23,10 @@ import javax.servlet.http.HttpSession;
 import models.Post;
 
 /**
+ * this class receive data, handle add post request and forward to view
  *
- * @author HP
+ *
+ * @author HoangLV
  */
 public class AddPostServlet extends HttpServlet {
 
@@ -52,7 +58,7 @@ public class AddPostServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles add post requests
      *
      * @param request servlet request
      * @param response servlet response
@@ -62,42 +68,58 @@ public class AddPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /*
+        *  admin only
+        */
         if (!isAdmin(request)) {
             response.sendRedirect("home");
         }
+        
+        
         String titleSearch = request.getParameter("titleSearch") == null
                 ? ""
-                : request.getParameter("titleSearch");
+                : request.getParameter("titleSearch"); // get current search text
+        
+        /*
+        * get new post data
+        */
         String title = request.getParameter("title");
         String image = request.getParameter("image");
         String content = request.getParameter("content");
         Date date = new Date();
 
         DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        PostDAO dao = new PostDAO(db);
 
         Post post = new Post(title, image, content, date);
 
-        dao.addPost(post);
+        dao.addPost(post); //add post
 
+        
+        /*
+        * setup data for refresh page
+        */
         int rowCount = dao.countPost(titleSearch);
-
         String page_raw = request.getParameter("txtPage");
         page_raw = (page_raw == null) ? "1" : page_raw;
-
         int pageIndex = Integer.parseInt(page_raw);
-        int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0);
-
-        List<Post> list = dao.getPosts(pageIndex, titleSearch);
+        int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0); //get last page
+        List<Post> list = dao.getListPosts(pageIndex, titleSearch);
 
         request.setAttribute("list", list);
         request.setAttribute("titleSearch", titleSearch);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("addSuccess", "1");
-        request.getRequestDispatcher("ListPost.jsp").forward(request, response);
+        request.getRequestDispatcher("ListPost.jsp").forward(request, response); 
     }
 
+    /**
+    * Check if current user is an administrator
+    *
+    * @param request servlet request
+    * @return true if is admin false if is not
+    */
     private boolean isAdmin(HttpServletRequest request) {
         HttpSession session = request.getSession();
 

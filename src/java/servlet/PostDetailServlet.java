@@ -1,12 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               HoanglV                        first comment
  */
 package servlet;
 
 import context.DBContext;
-import dao.DAO;
+import dao.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,8 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import models.Post;
 
 /**
+ * this class get data, handle view post detail request and forward to view
  *
- * @author HP
+ *
+ * @author HoangLV
  */
 public class PostDetailServlet extends HttpServlet {
 
@@ -65,9 +71,9 @@ public class PostDetailServlet extends HttpServlet {
         }
 
         DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        PostDAO dao = new PostDAO(db);
 
-        Post post = dao.getPostById(Integer.parseInt(id));
+        Post post = dao.getPostById(Integer.parseInt(id)); //get selected post
 
         request.setAttribute("post", post);
         request.getRequestDispatcher("PostDetail.jsp").forward(request, response);
