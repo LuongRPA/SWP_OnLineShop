@@ -1,12 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               HoanglV                        first comment
  */
 package servlet;
 
 import context.DBContext;
-import dao.DAO;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,8 +21,10 @@ import javax.servlet.http.HttpSession;
 import models.Users;
 
 /**
+ * The class used to handle user's change password requests which receive user inputed
+ * data and send to lower levels to process
  *
- * @author HP
+ * @author Le Viet Hoang
  */
 public class editform extends HttpServlet {
 
@@ -48,7 +54,7 @@ public class editform extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -64,7 +70,7 @@ public class editform extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * receive data and process
      *
      * @param request servlet request
      * @param response servlet response
@@ -75,32 +81,42 @@ public class editform extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        UserDAO dao = new UserDAO(db);
 
         HttpSession session = request.getSession();
-        String userName = (String) session.getAttribute("username");
-
+        String userName = (String) session.getAttribute("username"); //get current user
+        /*
+        * this block get current user data to show later
+        */
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         int gender = Integer.parseInt(request.getParameter("gender"));
         String address = request.getParameter("address");
-
         Users user = new Users(userName, password, email, phone, gender, address);
 
+        /*
+        * get new password and confirmation
+        */
         String newPassword = request.getParameter("newPassword");
         String reNewPassword = request.getParameter("reNewPassword");
 
-        if (!newPassword.equals(reNewPassword)) {
+        if (!newPassword.equals(reNewPassword)) { // 2 password not matching
+            /*
+            * send message that use messed up
+            */
             request.setAttribute("user_info", user);
             request.setAttribute("status", "fail");
-            request.getRequestDispatcher("userinfo.jsp").forward(request, response);
+            request.getRequestDispatcher("userinfo.jsp").forward(request, response); 
         } else {
+            /*
+            * this block update password and send new data to view
+            */
             dao.changePassword(userName, newPassword);
             user.setPassword(newPassword);
             request.setAttribute("user_info", user);
             request.setAttribute("status", "success");
-            request.getRequestDispatcher("userinfo.jsp").forward(request, response);
+            request.getRequestDispatcher("userinfo.jsp").forward(request, response); //forward to view
         }
     }
 
