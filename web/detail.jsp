@@ -1,8 +1,7 @@
 <%-- 
-    Document   : detail
-    Created on : Aug 28, 2019, 9:57:04 AM
-    Author     : sony
+    
 --%>
+<%@page import="dao.ProductDAO"%>
 <%@page import="context.DBContext"%>
 <%@page import="dao.DAO"%>
 <%@page import="models.LaptopInfo"%>
@@ -104,11 +103,7 @@
             String us = (String) s.getAttribute("username");
             String admin = (String) s.getAttribute("admin");
             Product p = (Product) request.getAttribute("product");
-
-            DAO dao = new DAO(new DBContext());
-
-            LaptopInfo laptopInfo = dao.getLaptopInfo(p.getLaptopInfoID());
-
+            LaptopInfo laptopInfo = (LaptopInfo)request.getAttribute("laptopInfo");
             ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart_list");
 
             if (cart_list != null) {

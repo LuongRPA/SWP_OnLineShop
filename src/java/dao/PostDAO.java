@@ -155,9 +155,7 @@ public class PostDAO {
     /**
      * used to delete a specific post form table Post in database
      *
-     * @param (pageIndex) number of page to get from database
-     * @param (title) a part of the post title used for searching leave blank if want to get all post, string 
-     * @return (List<Post>) page wanted to get
+     * @param (id) id code of deleting post
      */
     public void deletePostById(int id) {
         try {

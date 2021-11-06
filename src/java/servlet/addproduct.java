@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package servlet;
 
 import context.DBContext;
 import dao.DAO;
+import dao.ProductDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,7 +54,7 @@ public class addproduct extends HttpServlet {
         int laptopInfoId = Integer.parseInt(request.getParameter("laptopInfoID"));
         String image = request.getParameter("image");
         DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        ProductDAO dao = new ProductDAO(db);
         dao.addProduct(name, price, image, laptopInfoId);
         response.sendRedirect("manageritem");
     }

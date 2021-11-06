@@ -10,11 +10,9 @@
 package servlet;
 
 import context.DBContext;
-import dao.DAO;
 import dao.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +25,6 @@ import models.Post;
  * this class receive data, handle add post request and forward to view
 
  *
- * <p>Bugs: (a list of bugs and other problems)
  *
  * @author (HoangLV
  */

@@ -1,44 +1,76 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               HoanglV                        first comment
  */
 package servlet;
 
 import context.DBContext;
 import dao.DAO;
+import dao.ProductDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.LaptopInfo;
 import models.Product;
 
 /**
+ * this class receive data of chosen product handle view request and forward to view
  *
- * @author sony
+ *
+ * @author HoangLV
  */
 public class detail extends HttpServlet {
 
+    /**
+     * Handles view product request
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        /*
+        * get product id
+        */
         String stringPid = request.getParameter("pid");
         DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        ProductDAO dao = new ProductDAO(db);
         int pid = 0;
         try {
             pid = Integer.parseInt(stringPid);
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
-        Product p = dao.getProductByID(pid);
+        
+        Product p = dao.getProductByID(pid); //get produt detail
+        
+        LaptopInfo laptopInfo = dao.getLaptopInfo(p.getLaptopInfoID()); //get produt info
+        request.setAttribute("laptopInfo", laptopInfo);
         request.setAttribute("product", p);
-        request.getRequestDispatcher("detail.jsp").forward(request, response);
+        request.getRequestDispatcher("detail.jsp").forward(request, response); //forward
 
     }
 
+    /**
+     * Handles add product to cart request
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
