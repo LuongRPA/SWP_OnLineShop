@@ -110,23 +110,23 @@
     </servlet>
     <servlet>
         <servlet-name>AddPostServlet</servlet-name>
-        <servlet-class>servlet.AddPostServlet</servlet-class>
+        <servlet-class>servlet.AddPostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListPostServlet</servlet-name>
-        <servlet-class>servlet.ListPostServlet</servlet-class>
+        <servlet-class>servlet.ListPostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeletePostServlet</servlet-name>
-        <servlet-class>servlet.DeletePostServlet</servlet-class>
+        <servlet-class>servlet.DeletePostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FormAddPostServlet</servlet-name>
-        <servlet-class>servlet.FormAddPostServlet</servlet-class>
+        <servlet-class>servlet.FormAddPostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostDetailServlet</servlet-name>
-        <servlet-class>servlet.PostDetailServlet</servlet-class>
+        <servlet-class>servlet.PostDetailController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>homepage</servlet-name>
