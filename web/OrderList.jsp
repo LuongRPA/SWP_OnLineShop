@@ -150,7 +150,7 @@
                 <li ><a  href="manageritem">Manager Product</a></li>
                 <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="ListPostServlet">Blog</a></li>
                 <li ><a  href="shop">Shop</a></li>
                 <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
                 <li ><a  href="myorder">My Order</a></li><%}%>
