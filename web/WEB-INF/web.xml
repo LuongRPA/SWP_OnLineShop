@@ -58,7 +58,7 @@
     </servlet>
     <servlet>
         <servlet-name>editform</servlet-name>
-        <servlet-class>servlet.editform</servlet-class>
+        <servlet-class>servlet.EditFormController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddToCart</servlet-name>

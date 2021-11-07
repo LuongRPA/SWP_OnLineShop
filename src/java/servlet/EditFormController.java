@@ -26,7 +26,7 @@ import models.Users;
  *
  * @author Le Viet Hoang
  */
-public class editform extends HttpServlet {
+public class EditFormController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -45,7 +45,7 @@ public class UserDAO {
     }
 
     /**
-     * This method checks if user has entered the right account information
+     * This method checks if inputed password match with database's
      *
      * @param (username) Username of user, is a string type
      * @param (password) password of said username, is string type

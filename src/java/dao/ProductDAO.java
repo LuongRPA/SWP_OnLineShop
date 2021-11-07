@@ -161,7 +161,7 @@ public class ProductDAO {
         return null;
     }
     
-    public int getCount(String nameProduct) throws SQLException {
+        public int getCount(String nameProduct) throws SQLException {
         int count = 0;
         try {
             String query = "select count(*) from Product where ProductName like ?";

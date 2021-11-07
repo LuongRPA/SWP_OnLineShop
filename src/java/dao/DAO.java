@@ -66,7 +66,7 @@ public class DAO {
             System.out.println(e);
         }
     }
-
+  
     public void addToContact(String username, String email, String phone, String contents) {
         try {
             String sql = "INSERT INTO [PRJ321E5_PROJECT].[dbo].[Contact]\n"
