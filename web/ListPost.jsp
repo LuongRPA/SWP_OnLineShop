@@ -183,7 +183,7 @@
                 color: red;
                 font-size: 20px;
             }
-            
+
             .mg-bot-20 {
                 margin-bottom: 20px;
             }
@@ -233,7 +233,7 @@
                 <li ><a  href="manageritem">Manager Product</a></li>
                 <li ><a  href="FeedbackListServlet">Manager Feedback</a></li>
                     <%} else {%>
-                <li ><a  href="ListPostServlet">Post</a></li>
+                <li ><a  href="ListPostServlet">Blog</a></li>
                 <li ><a  href="mycart">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
                 <li ><a  href="shop" style="color:green;">Shop</a></li>
                 <li ><a  href="myorder">My Order</a></li><%}%>
@@ -271,14 +271,36 @@
                 </script>
             </div>
             <div class="about" >
+                <%
+                    if (admin != null) {
+                %>
                 <h2 style="font-size:45px;font-family:Time New Roman">DANH SÁCH POST</h2>
-
-                <!-- Search -->
                 <p class="search-name">Tìm kiếm Post</p>
+                <%
+                } else {
+                %>
+                <h2 style="font-size:45px;font-family:Time New Roman">DANH SÁCH BLOG</h2>
+                <p class="search-name">Tìm kiếm Blog</p>
+                <%
+                    }
+                %>
+                <!-- Search -->
+
 
                 <div class="search mg-bot-20">
                     <form action="ListPostServlet">
+                        <%
+                            if (admin != null) {
+                        %>
                         <input type="text" maxlength="30" placeholder="Tên post..." value="${titleSearch}" name="titleSearch"/>
+                        <%
+                        } else {
+                        %>
+                        <input type="text" maxlength="30" placeholder="Tên Blog..." value="${titleSearch}" name="titleSearch"/>
+                        <%
+                            }
+                        %>
+                        
                         <button type="submit" class="btnSubmit">Tìm kiếm</button>
                     </form>
                 </div>
@@ -293,7 +315,7 @@
 
                 <% if (list.size() == 0) {
                 %>
-                <h2>Không tìm thấy Post</h2>
+                <h2>Không tìm thấy BLog/Post</h2>
                 <%
                     }%>
                 <div class="products">
