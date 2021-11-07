@@ -33,6 +33,10 @@ and open the template in the editor.
         .content-w3ls {
             max-width: 500px;
             margin: 6em auto;
+            background: #D3D3D3;
+            padding:100px 25px 100px 25px;
+            border: #ff9900 solid 5px;
+            border-radius: 25px;
         }
         .icon span.fa{
             font-size: 60px;
@@ -116,22 +120,16 @@ and open the template in the editor.
             letter-spacing: 2px;
             cursor: pointer;
             transition: 0.5s all;
-            -webkit-transition: 0.5s all;
-            -moz-transition: 0.5s all;
-            -o-transition: 0.5s all;
-            -ms-transition: 0.5s all;
+            
             border-radius: 35px;
-            -webkit-border-radius: 35px;
-            -moz-border-radius: 35px;
-            -ms-border-radius: 35px;
-            -o-border-radius: 35px;
+            
         }
 
         .wthree-field input {
             padding: 10px 0 10px 15px;
             font-size: 17px;
             font-weight: 300;
-            color:#ddd;
+            color: black;
             letter-spacing: 1px;
             border: none;
             background: transparent;
@@ -158,7 +156,7 @@ and open the template in the editor.
             letter-spacing: 2px;
             font-weight: normal;
             text-transform: uppercase;
-            color: #fff !important;
+            color: black !important;
 
 
         }
@@ -166,7 +164,16 @@ and open the template in the editor.
     </style>
     <body>
         <div class="content-w3ls">
+            <div>
+                <h1 style="float:left; margin-left:15px; font-size:40px;">
+                    <span style=""><a href="home" style="text-decoration: none;color:#DAA520">LapTop</a> </span><span style=""><a href="home" style="text-decoration: none;color:#000000">Gaming</a></span>
+                </h1>
+                <p style="float:left;margin-top: 70px;font-weight: 900px;margin-left: 5px;word-spacing: 2px;color:black;font-size:15px;">
+                    LapTopGaming Store
+                </p>
+            </div>
             <div class="text-center icon">
+                
                 <span class="fa fa-fire"></span>
             </div>
 
@@ -175,19 +182,19 @@ and open the template in the editor.
                 <form action="login" method="post">
 
                     <div class="field-group">
-                        <span class="fa fa-user" aria-hidden="true"></span>
+                        <span style="padding-right: 10px; " class="fa fa-user" aria-hidden="true"></span>
                         <div class="wthree-field">
-                            <input name="username" id="text1" type="text" value="" placeholder="Username" required >
+                            <input  name="username" id="text1" type="text" value="" placeholder="Username" required >
                         </div>
                     </div>
                     <div class="field-group">
-                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <span  style="padding-right: 10px; "class="fa fa-lock" aria-hidden="true"></span>
                         <div class="wthree-field">
-                            <input name="password" id="myInput" type="Password" placeholder="Password" required >
+                            <input  name="password" id="myInput" type="Password" placeholder="Password" required >
                         </div>
                     </div>
                     <div class="wthree-field">
-                        <input type="submit" class="btn" value="LOGIN">
+                        <input type="submit" style="background-color: #32CD32; "class="btn" value="LOGIN">
                     </div>
                     <div class="register" style="margin-top: 15px; ">
                         <a href="register">CREATE ACCOUNT</a>
