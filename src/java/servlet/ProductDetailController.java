@@ -27,7 +27,7 @@ import models.Product;
  *
  * @author HoangLV
  */
-public class detail extends HttpServlet {
+public class ProductDetailController extends HttpServlet {
 
     /**
      * Handles view product request
@@ -54,7 +54,7 @@ public class detail extends HttpServlet {
             System.out.println(e);
         }
         
-        Product p = dao.getProductByID(pid); //get produt detail
+        Product p = dao.getProductByID(pid); //get produt ProductDetailController
         
         LaptopInfo laptopInfo = dao.getLaptopInfo(p.getLaptopInfoID()); //get produt info
         request.setAttribute("laptopInfo", laptopInfo);

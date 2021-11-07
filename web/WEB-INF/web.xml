@@ -38,7 +38,7 @@
     </servlet>
     <servlet>
         <servlet-name>shop</servlet-name>
-        <servlet-class>servlet.shop</servlet-class>
+        <servlet-class>servlet.shopController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>manager</servlet-name>
@@ -46,7 +46,7 @@
     </servlet>
     <servlet>
         <servlet-name>detail</servlet-name>
-        <servlet-class>servlet.detail</servlet-class>
+        <servlet-class>servlet.ProductDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>myorder</servlet-name>

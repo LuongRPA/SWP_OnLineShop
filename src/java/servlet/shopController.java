@@ -26,7 +26,7 @@ import models.Product;
  *
  * @author HoangLV
  */
-public class shop extends HttpServlet {
+public class shopController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
