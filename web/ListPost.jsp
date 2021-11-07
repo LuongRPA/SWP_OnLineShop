@@ -1,4 +1,4 @@
-/*
+<!--/*
  * Copyright(C) 2021,  FPT.
  *  LTS:
  *  LaptopShop
@@ -6,7 +6,7 @@
  * Record of change:
  * DATE                       Version             AUTHOR                       DESCRIPTION
  * 2021/11/6                   1.0               HoanglV                       first comment
- */
+ */-->
 
 <%@page import="models.Post"%>
 <%@page import="models.Cart"%>
