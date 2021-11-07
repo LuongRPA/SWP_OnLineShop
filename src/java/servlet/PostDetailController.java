@@ -25,7 +25,7 @@ import models.Post;
  *
  * @author HoangLV
  */
-public class PostDetailServlet extends HttpServlet {
+public class PostDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

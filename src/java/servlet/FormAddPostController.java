@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author HP
  */
-public class FormAddPostServlet extends HttpServlet {
+public class FormAddPostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

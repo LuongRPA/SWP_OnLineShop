@@ -13,20 +13,22 @@ import context.DBContext;
 import dao.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Post;
 
 /**
- * this class get data, handle view post request and forward to view
+ * this class receive data, handle add post request and forward to view
  *
  *
  * @author HoangLV
  */
-public class ListPostServlet extends HttpServlet {
+public class AddPostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +47,10 @@ public class ListPostServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListPostServlet</title>");            
+            out.println("<title>Servlet AddPostServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListPostServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddPostServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +58,7 @@ public class ListPostServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles view posts requests
+     * Handles add post requests
      *
      * @param request servlet request
      * @param response servlet response
@@ -66,29 +68,63 @@ public class ListPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /*
+        *  admin only
+        */
+        if (!isAdmin(request)) {
+            response.sendRedirect("home");
+        }
+        
         
         String titleSearch = request.getParameter("titleSearch") == null
                 ? ""
                 : request.getParameter("titleSearch"); // get current search text
+        
+        /*
+        * get new post data
+        */
+        String title = request.getParameter("title");
+        String image = request.getParameter("image");
+        String content = request.getParameter("content");
+        Date date = new Date();
+
         DBContext db = new DBContext();
         PostDAO dao = new PostDAO(db);
 
+        Post post = new Post(title, image, content, date);
+
+        dao.addPost(post); //add post
+
+        
         /*
-        * get page
+        * setup data for refresh page
         */
         int rowCount = dao.countPost(titleSearch);
         String page_raw = request.getParameter("txtPage");
         page_raw = (page_raw == null) ? "1" : page_raw;
         int pageIndex = Integer.parseInt(page_raw);
-        int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0);
-
-        List<Post> list = dao.getListPosts(pageIndex, titleSearch); //get post list of said page
+        int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0); //get last page
+        List<Post> list = dao.getListPosts(pageIndex, titleSearch);
 
         request.setAttribute("list", list);
         request.setAttribute("titleSearch", titleSearch);
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("pageIndex", pageIndex);
-        request.getRequestDispatcher("ListPost.jsp").forward(request, response);
+        request.setAttribute("addSuccess", "1");
+        request.getRequestDispatcher("ListPost.jsp").forward(request, response); 
+    }
+
+    /**
+    * Check if current user is an administrator
+    *
+    * @param request servlet request
+    * @return true if is admin false if is not
+    */
+    private boolean isAdmin(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String admin = (String) session.getAttribute("admin");
+        return admin != null;
     }
 
     /**

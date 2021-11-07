@@ -13,7 +13,6 @@ import context.DBContext;
 import dao.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,11 +23,12 @@ import models.Post;
 
 /**
  * this class receive data, handle add post request and forward to view
+
  *
  *
- * @author HoangLV
+ * @author (HoangLV
  */
-public class AddPostServlet extends HttpServlet {
+public class DeletePostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +47,10 @@ public class AddPostServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddPostServlet</title>");
+            out.println("<title>Servlet DeletePostServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddPostServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeletePostServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,7 +58,7 @@ public class AddPostServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles add post requests
+     * Handles delete post request
      *
      * @param request servlet request
      * @param response servlet response
@@ -75,45 +75,37 @@ public class AddPostServlet extends HttpServlet {
             response.sendRedirect("home");
         }
         
-        
         String titleSearch = request.getParameter("titleSearch") == null
                 ? ""
-                : request.getParameter("titleSearch"); // get current search text
+                : request.getParameter("titleSearch"); //get current search text
         
-        /*
-        * get new post data
-        */
-        String title = request.getParameter("title");
-        String image = request.getParameter("image");
-        String content = request.getParameter("content");
-        Date date = new Date();
-
+        
+        String idPost = request.getParameter("id");
         DBContext db = new DBContext();
         PostDAO dao = new PostDAO(db);
 
-        Post post = new Post(title, image, content, date);
+        if (idPost == null) {
+            response.sendRedirect("home"); // return home if wrong id
+        } else {
+            dao.deletePostById(Integer.parseInt(idPost));  //delete post
 
-        dao.addPost(post); //add post
+            /*
+            * setup data for refresh page
+            */
+            int rowCount = dao.countPost(titleSearch);
+            String page_raw = request.getParameter("txtPage");
+            page_raw = (page_raw == null) ? "1" : page_raw;
+            int pageIndex = Integer.parseInt(page_raw);
+            int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0);
+            List<Post> list = dao.getListPosts(pageIndex, titleSearch);
 
-        
-        /*
-        * setup data for refresh page
-        */
-        int rowCount = dao.countPost(titleSearch);
-        String page_raw = request.getParameter("txtPage");
-        page_raw = (page_raw == null) ? "1" : page_raw;
-        int pageIndex = Integer.parseInt(page_raw);
-        int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0); //get last page
-        List<Post> list = dao.getListPosts(pageIndex, titleSearch);
-
-        request.setAttribute("list", list);
-        request.setAttribute("titleSearch", titleSearch);
-        request.setAttribute("maxPage", maxPage);
-        request.setAttribute("pageIndex", pageIndex);
-        request.setAttribute("addSuccess", "1");
-        request.getRequestDispatcher("ListPost.jsp").forward(request, response); 
+            request.setAttribute("list", list);
+            request.setAttribute("titleSearch", titleSearch);
+            request.setAttribute("maxPage", maxPage);
+            request.setAttribute("pageIndex", pageIndex);
+            request.getRequestDispatcher("ListPost.jsp").forward(request, response);
+        }
     }
-
     /**
     * Check if current user is an administrator
     *
