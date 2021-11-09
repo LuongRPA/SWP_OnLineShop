@@ -1,9 +1,9 @@
 <%-- 
     
 --%>
-<%@page import="dao.ProductDAO"%>
+
 <%@page import="context.DBContext"%>
-<%@page import="dao.DAO"%>
+
 <%@page import="models.LaptopInfo"%>
 <%@page import="models.Cart"%>
 <%@page import="models.Product"%>

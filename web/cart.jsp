@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="context.DBContext"%>
-<%@page import="dao.DAO"%>
+<%@page import="DaoImplements.DAO"%>
 <%@page import="models.Cart"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
