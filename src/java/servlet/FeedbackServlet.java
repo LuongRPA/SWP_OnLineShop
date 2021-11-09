@@ -2,6 +2,13 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0                LongCH                     first comment
  */
 package servlet;
 
@@ -18,8 +25,11 @@ import javax.servlet.http.HttpSession;
 import models.Feedback;
 
 /**
+ * The class used to handle user's change password requests which receive user inputed
+ * data and send to lower levels to process
  *
  * @author HP
+ * @author Chu Hoang Long
  */
 public class FeedbackServlet extends HttpServlet {
 
