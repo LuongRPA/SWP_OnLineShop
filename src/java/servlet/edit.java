@@ -6,9 +6,9 @@
 package servlet;
 
 import context.DBContext;
-import dao.DAO;
+import DaoImplements.DAO;
 import dao.UserDao;
-import dao.UserDaoImp;
+import DaoImplements.UserDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

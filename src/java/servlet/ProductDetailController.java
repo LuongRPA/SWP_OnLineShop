@@ -10,9 +10,9 @@
 package servlet;
 
 import context.DBContext;
-import dao.DAO;
+import DaoImplements.DAO;
 import dao.ProductDao;
-import dao.ProductDaoImp;
+import DaoImplements.ProductDaoImp;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

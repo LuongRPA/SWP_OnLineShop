@@ -7,7 +7,7 @@ package servlet;
 
 import context.DBContext;
 import dao.ProductDao;
-import dao.ProductDaoImp;
+import DaoImplements.ProductDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;

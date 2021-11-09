@@ -11,7 +11,7 @@ package servlet;
 
 import context.DBContext;
 import dao.PostDao;
-import dao.PostDaoImp;
+import DaoImplements.PostDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

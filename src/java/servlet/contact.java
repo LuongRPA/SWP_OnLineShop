@@ -5,7 +5,7 @@
  */
 package servlet;
 import context.DBContext;
-import dao.DAO;
+import DaoImplements.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;

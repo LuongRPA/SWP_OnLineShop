@@ -7,9 +7,10 @@
  * DATE                       Version             AUTHOR                       DESCRIPTION
  * 2021/11/6                   1.0               HoanglV                        first comment
  */
-package dao;
+package DaoImplements;
 
 import context.DBContext;
+import dao.ProductDao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
