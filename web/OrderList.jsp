@@ -2,7 +2,17 @@
     Document   : OrderList
     Created on : Oct 25, 2021, 1:25:26 PM
     Author     : HP
+/*
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               LongCH                     first comment
+ */
 --%>
+
 
 <%@page import="models.Cart"%>
 <%@page import="java.util.ArrayList"%>
@@ -169,7 +179,7 @@
         <!-- START CONTENT PAGE -->
         <section id="mainContainer">
             <div class="about" >
-                <h2 style="font-size:50px;font-family:Time New Roman">MANAGE ACCOUNT</h2>
+                <h2 style="font-size:50px;font-family:Time New Roman">ORDER LIST</h2>
 
                 <!-- Search -->
                 <p class="search-name">Tìm Order theo người mua</p>
