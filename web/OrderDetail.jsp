@@ -2,6 +2,15 @@
     Document   : OrderDetail
     Created on : Oct 25, 2021, 2:54:58 PM
     Author     : HP
+/*
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               LongCH                     first comment
+ */
 --%>
 
 <%@page import="models.Cart"%>

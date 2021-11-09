@@ -2,6 +2,15 @@
     Document   : RestaurantDetailPicture
     Created on : Sep 21, 2021, 6:21:57 AM
     Author     : HP
+/*
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               LongCH                     first comment
+ */
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

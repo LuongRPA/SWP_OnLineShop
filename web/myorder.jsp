@@ -2,6 +2,15 @@
     Document   : myorder
     Created on : Aug 28, 2019, 11:02:14 AM
     Author     : sony
+/*
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               LongCH                     first comment
+ */
 --%>
 
 <%@page import="models.Cart"%>

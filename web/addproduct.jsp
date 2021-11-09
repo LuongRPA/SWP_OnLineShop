@@ -2,6 +2,15 @@
     Document   : edit
     Created on : Aug 19, 2019, 11:06:50 PM
     Author     : sony
+/*
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/6                   1.0               LongCH                     first comment
+ */
 --%>
 
 <%@page import="models.Cart"%>
