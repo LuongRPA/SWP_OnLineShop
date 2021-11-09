@@ -10,6 +10,7 @@
 package servlet;
 
 import context.DBContext;
+import dao.ProductDao;
 import dao.ProductDaoImp;
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import models.Product;
 
 /**
@@ -50,9 +50,7 @@ public class shopController extends HttpServlet {
             nameProduct = nameProduct == null ? "" : nameProduct.trim();
             
             DBContext db = new DBContext();
-            ProductDaoImp dao = new ProductDaoImp(db);
-            HttpSession session = request.getSession();
-            String username = (String) session.getAttribute("username");
+            ProductDao dao = new ProductDaoImp();
             
             //count rows
             int rowCount = dao.getCount(nameProduct);

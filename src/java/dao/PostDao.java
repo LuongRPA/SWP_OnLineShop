@@ -12,7 +12,7 @@ import models.Post;
  *
  * @author Administrator
  */
-public interface PostDao {
+public interface PostDao{
     public void addPost(Post post);
     public Post getPostById(int id);
     public int countPost(String title);

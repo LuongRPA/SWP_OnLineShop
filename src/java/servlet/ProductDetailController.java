@@ -11,6 +11,7 @@ package servlet;
 
 import context.DBContext;
 import dao.DAO;
+import dao.ProductDao;
 import dao.ProductDaoImp;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -46,7 +47,7 @@ public class ProductDetailController extends HttpServlet {
         */
         String stringPid = request.getParameter("pid");
         DBContext db = new DBContext();
-        ProductDaoImp dao = new ProductDaoImp(db);
+        ProductDao dao = new ProductDaoImp();
         int pid = 0;
         try {
             pid = Integer.parseInt(stringPid);

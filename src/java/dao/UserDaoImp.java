@@ -25,25 +25,11 @@ import models.Users;
  *
  * @author Le Viet Hoang
  */
-public class UserDaoImp implements UserDao{
+public class UserDaoImp extends DBContext implements UserDao{
 
-    private Connection connection;
+  
 
-    /**
-     * create a connection to database. By calling getConnection from dbcontext
-     *
-     * @param db dbcontext file to connect to database change the connection
-     * attribute of class
-     *
-     */
-    public UserDaoImp(DBContext db) {
-        try {
-            connection = db.getConnection();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
+    
     /**
      * This method checks if inputed password match with database's
      *

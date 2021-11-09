@@ -10,6 +10,7 @@
 package servlet;
 
 import context.DBContext;
+import dao.PostDao;
 import dao.PostDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,8 +83,7 @@ public class DeletePostController extends HttpServlet {
         
         String idPost = request.getParameter("id");
         DBContext db = new DBContext();
-        PostDaoImp dao = new PostDaoImp(db);
-
+        PostDao dao = new PostDaoImp();
         if (idPost == null) {
             response.sendRedirect("home"); // return home if wrong id
         } else {

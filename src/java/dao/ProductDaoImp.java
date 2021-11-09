@@ -10,7 +10,6 @@
 package dao;
 
 import context.DBContext;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import models.LaptopInfo;
 import models.Product;
 
@@ -30,24 +28,9 @@ import models.Product;
  *
  * @author Le Viet Hoang
  */
-public class ProductDaoImp implements ProductDao {
+public class ProductDaoImp extends DBContext implements ProductDao {
 
-    private Connection connection;
-
-    /**
-     * create a connection to database. By calling getConnection from dbcontext
-     *
-     * @param db dbcontext file to connect to database change the connection
-     * attribute of class
-     *
-     */
-    public ProductDaoImp(DBContext db) {
-        try {
-            connection = db.getConnection();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+   
 
     /**
      * This method add a new product in to product table in database

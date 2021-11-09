@@ -6,7 +6,7 @@
 package servlet;
 
 import context.DBContext;
-import dao.DAO;
+import dao.UserDao;
 import dao.UserDaoImp;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -39,7 +39,7 @@ public class dangnhap extends HttpServlet {
         String errMess = null;
         
         DBContext db = new DBContext();
-        UserDaoImp dao = new UserDaoImp(db);
+        UserDao dao = new UserDaoImp();
         int result = dao.checkUserAccount(username, password);
         
       try {

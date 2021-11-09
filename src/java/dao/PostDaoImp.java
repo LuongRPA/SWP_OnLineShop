@@ -19,27 +19,9 @@ import models.Post;
  *
  * @author Administrator
  */
-public class PostDaoImp implements PostDao{
+public class PostDaoImp extends DBContext implements PostDao{
 
-    private Connection connection;
-
-    /**
-     * create a connection to database. By calling getConnection from dbcontext
-     *
-     * @param db dbcontext file to connect to database change the connection
-     * attribute of class
-     *
-     */
-    public PostDaoImp() {
-    }
-
-    public PostDaoImp(DBContext db) {
-        try {
-            connection = db.getConnection();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+    
 
     /**
      *used to add a new post into Post table in database
@@ -52,6 +34,7 @@ public class PostDaoImp implements PostDao{
 
         try {
             String sql = "insert into Post values(?,?,?,?)";
+            
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, post.getTitle());
             ps.setString(2, post.getImage());

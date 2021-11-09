@@ -6,7 +6,7 @@
 package servlet;
 
 import context.DBContext;
-import dao.DAO;
+import dao.ProductDao;
 import dao.ProductDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -67,7 +67,7 @@ public class editproduct extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id_edit"));
         DBContext db = new DBContext();
-        ProductDaoImp dao = new ProductDaoImp(db);
+        ProductDao dao = new ProductDaoImp();
         Product p = dao.getProductByID(id);
         request.setAttribute("product", p);
         request.getRequestDispatcher("editproduct.jsp").forward(request, response);
@@ -87,7 +87,7 @@ public class editproduct extends HttpServlet {
         try {
             Date now = new Date();
             DBContext db = new DBContext();
-            ProductDaoImp dao = new ProductDaoImp(db);
+            ProductDaoImp dao = new ProductDaoImp();
 
             int id2 = Integer.parseInt(request.getParameter("oldid"));
             Product p = dao.getProductByID(id2);
