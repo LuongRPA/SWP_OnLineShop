@@ -10,7 +10,7 @@
 package servlet;
 
 import context.DBContext;
-import dao.PostDAO;
+import dao.PostDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -71,7 +71,7 @@ public class ListPostController extends HttpServlet {
                 ? ""
                 : request.getParameter("titleSearch"); // get current search text
         DBContext db = new DBContext();
-        PostDAO dao = new PostDAO(db);
+        PostDaoImp dao = new PostDaoImp(db);
 
         /*
         * get page

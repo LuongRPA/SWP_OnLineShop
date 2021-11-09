@@ -10,7 +10,7 @@
 package servlet;
 
 import context.DBContext;
-import dao.PostDAO;
+import dao.PostDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -71,7 +71,7 @@ public class PostDetailController extends HttpServlet {
         }
 
         DBContext db = new DBContext();
-        PostDAO dao = new PostDAO(db);
+        PostDaoImp dao = new PostDaoImp(db);
 
         Post post = dao.getPostById(Integer.parseInt(id)); //get selected post
 

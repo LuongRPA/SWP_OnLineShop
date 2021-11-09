@@ -10,7 +10,7 @@
 package servlet;
 
 import context.DBContext;
-import dao.UserDAO;
+import dao.UserDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -81,7 +81,7 @@ public class EditFormController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DBContext db = new DBContext();
-        UserDAO dao = new UserDAO(db);
+        UserDaoImp dao = new UserDaoImp(db);
 
         HttpSession session = request.getSession();
         String userName = (String) session.getAttribute("username"); //get current user

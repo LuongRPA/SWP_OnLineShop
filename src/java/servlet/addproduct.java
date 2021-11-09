@@ -3,7 +3,7 @@ package servlet;
 
 import context.DBContext;
 import dao.DAO;
-import dao.ProductDAO;
+import dao.ProductDaoImp;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,7 +54,7 @@ public class addproduct extends HttpServlet {
         int laptopInfoId = Integer.parseInt(request.getParameter("laptopInfoID"));
         String image = request.getParameter("image");
         DBContext db = new DBContext();
-        ProductDAO dao = new ProductDAO(db);
+        ProductDaoImp dao = new ProductDaoImp(db);
         dao.addProduct(name, price, image, laptopInfoId);
         response.sendRedirect("manageritem");
     }

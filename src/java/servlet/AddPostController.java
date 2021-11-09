@@ -10,7 +10,7 @@
 package servlet;
 
 import context.DBContext;
-import dao.PostDAO;
+import dao.PostDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -89,7 +89,7 @@ public class AddPostController extends HttpServlet {
         Date date = new Date();
 
         DBContext db = new DBContext();
-        PostDAO dao = new PostDAO(db);
+        PostDaoImp dao = new PostDaoImp(db);
 
         Post post = new Post(title, image, content, date);
 

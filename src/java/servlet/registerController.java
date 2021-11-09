@@ -10,7 +10,7 @@
 package servlet;
 
 import context.DBContext;
-import dao.UserDAO;
+import dao.UserDaoImp;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -71,7 +71,7 @@ public class registerController extends HttpServlet {
         } else {
             DBContext dbContext = new DBContext();
             try {
-                UserDAO DAO = new UserDAO(dbContext);
+                UserDaoImp DAO = new UserDaoImp(dbContext);
                 int result = DAO.checkUserAccount(username, password);  //call method to check if user is duplicated
                 if (result != 0) {
                     errMess = "This username is already available. Please choose other username"; // user is duplicated

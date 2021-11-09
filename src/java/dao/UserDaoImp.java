@@ -25,7 +25,7 @@ import models.Users;
  *
  * @author Le Viet Hoang
  */
-public class UserDAO {
+public class UserDaoImp implements UserDao{
 
     private Connection connection;
 
@@ -36,7 +36,7 @@ public class UserDAO {
      * attribute of class
      *
      */
-    public UserDAO(DBContext db) {
+    public UserDaoImp(DBContext db) {
         try {
             connection = db.getConnection();
         } catch (Exception ex) {
@@ -52,6 +52,7 @@ public class UserDAO {
      * @return 0 if no account, 1 if wrong password, 2 if account and password
      * is available
      */
+    @Override
     public int checkUserAccount(String username, String password) {
         Users acc = getAccountByUsername(username);
         if (acc == null) {
@@ -70,6 +71,7 @@ public class UserDAO {
      * @param (username) username of user, string
      * @return a user object of user.java entity
      */
+    @Override
     public Users getAccountByUsername(String username) {
         try {
             String sql = "SELECT * "
@@ -102,6 +104,7 @@ public class UserDAO {
      * @param (gender) 1 for male 0 for female
      * @param (address) user's address
      */
+    @Override
     public void signUpAccount(String username,
             String password,
             String email,
@@ -123,6 +126,7 @@ public class UserDAO {
         }
     }
 
+    @Override
     public void UpdateMethod(Users us, String oldusername) {
         try {
             String sql = "UPDATE [PRJ321E5_PROJECT].[dbo].[User]\n"
@@ -154,6 +158,7 @@ public class UserDAO {
      * @param (username) account needed to change password
      * @param (newPassword) new password of said account
      */
+    @Override
     public void changePassword(String username, String newPassword) {
         try {
             String sql = "UPDATE [PRJ321E5_PROJECT].[dbo].[User]\n"

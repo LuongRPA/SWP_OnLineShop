@@ -10,7 +10,7 @@
 package servlet;
 
 import context.DBContext;
-import dao.ProductDAO;
+import dao.ProductDaoImp;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -50,7 +50,7 @@ public class shopController extends HttpServlet {
             nameProduct = nameProduct == null ? "" : nameProduct.trim();
             
             DBContext db = new DBContext();
-            ProductDAO dao = new ProductDAO(db);
+            ProductDaoImp dao = new ProductDaoImp(db);
             HttpSession session = request.getSession();
             String username = (String) session.getAttribute("username");
             

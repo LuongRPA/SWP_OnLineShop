@@ -7,7 +7,7 @@ package servlet;
 
 import context.DBContext;
 import dao.DAO;
-import dao.UserDAO;
+import dao.UserDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class edit extends HttpServlet {
             return;
         }
         DBContext db = new DBContext();
-        UserDAO dao = new UserDAO(db);
+        UserDaoImp dao = new UserDaoImp(db);
         Users users = dao.getAccountByUsername(username);
         request.setAttribute("users", users);
         request.getRequestDispatcher("edit.jsp").forward(request, response);
@@ -46,7 +46,7 @@ public class edit extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DBContext db = new DBContext();
-        UserDAO dao = new UserDAO(db);
+        UserDaoImp dao = new UserDaoImp(db);
         String errMess = null;
         HttpSession session = request.getSession();
         String username2 = (String) session.getAttribute("username");

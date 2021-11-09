@@ -7,7 +7,7 @@ package servlet;
 
 import context.DBContext;
 import dao.DAO;
-import dao.ProductDAO;
+import dao.ProductDaoImp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -70,7 +70,7 @@ public class manageritem extends HttpServlet {
         }
         
         DBContext db = new DBContext();
-        ProductDAO dao = new ProductDAO(db);
+        ProductDaoImp dao = new ProductDaoImp(db);
 
         if (request.getParameter("id_del") != null) {
             int id_del = Integer.parseInt(request.getParameter("id_del"));

@@ -30,7 +30,7 @@ import models.Product;
  *
  * @author Le Viet Hoang
  */
-public class ProductDAO {
+public class ProductDaoImp implements ProductDao {
 
     private Connection connection;
 
@@ -41,7 +41,7 @@ public class ProductDAO {
      * attribute of class
      *
      */
-    public ProductDAO(DBContext db) {
+    public ProductDaoImp(DBContext db) {
         try {
             connection = db.getConnection();
         } catch (Exception ex) {
@@ -59,8 +59,7 @@ public class ProductDAO {
      * @return 0 if no account, 1 if wrong password, 2 if account and password
      * is available
      */
-    
-
+    @Override
     public List<Product> getAllProduct() {
         List<Product> list = new ArrayList<>();
         try {
@@ -79,6 +78,7 @@ public class ProductDAO {
         return list;
     }
 
+    @Override
     public void UpdateProduct(Product p, int oldid) {
         try {
             String sql = "UPDATE [dbo].[Product]\n"
@@ -100,6 +100,7 @@ public class ProductDAO {
         }
     }
 
+    @Override
     public void deleteByProductID(int id) {
         try {
             deleteOrderbyproductID(id);
@@ -112,6 +113,7 @@ public class ProductDAO {
         }
     }
 
+    @Override
     public void deleteOrderbyproductID(int ID) throws SQLException {
         String sql1 = "delete from [dbo].[Order] where ProductID = ?";
         PreparedStatement ps1 = connection.prepareStatement(sql1);
@@ -119,9 +121,7 @@ public class ProductDAO {
         ps1.execute();
     }
 
-
-    
-
+    @Override
     public void addProduct(String name, int price, String image, int laptopInfoID) {
         java.util.Date utilDate = new java.util.Date();
         Date now = new Date(utilDate.getTime());
@@ -141,6 +141,7 @@ public class ProductDAO {
         }
     }
 
+    @Override
     public Product getProductByID(int pid) {
         try {
             String sql = "select * from Product p where p.ProductID = ? ";
@@ -160,8 +161,9 @@ public class ProductDAO {
         }
         return null;
     }
-    
-        public int getCount(String nameProduct) throws SQLException {
+
+    @Override
+    public int getCount(String nameProduct) throws SQLException {
         int count = 0;
         try {
             String query = "select count(*) from Product where ProductName like ?";
@@ -178,6 +180,8 @@ public class ProductDAO {
         return count;
 
     }
+
+    @Override
     public List<Product> getListProduct(int pageIndex, String nameProduct) throws SQLException {
         List<Product> list = new ArrayList<>();
         try {
@@ -210,6 +214,8 @@ public class ProductDAO {
         }
         return list;
     }
+
+    @Override
     public LaptopInfo getLaptopInfo(int id) {
         try {
             String sql = "select * from LaptopInfo l where l.ID = ?";
@@ -234,4 +240,3 @@ public class ProductDAO {
         return null;
     }
 }
-

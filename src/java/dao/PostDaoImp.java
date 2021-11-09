@@ -19,7 +19,7 @@ import models.Post;
  *
  * @author Administrator
  */
-public class PostDAO {
+public class PostDaoImp implements PostDao{
 
     private Connection connection;
 
@@ -30,7 +30,10 @@ public class PostDAO {
      * attribute of class
      *
      */
-    public PostDAO(DBContext db) {
+    public PostDaoImp() {
+    }
+
+    public PostDaoImp(DBContext db) {
         try {
             connection = db.getConnection();
         } catch (Exception ex) {
@@ -43,6 +46,7 @@ public class PostDAO {
      *
      * @param (post) a post object of Post.java entity
      */
+    @Override
     public void addPost(Post post) {
         Date now = new Date(post.getPublicAt().getTime());// get current date as postdate
 
@@ -66,6 +70,7 @@ public class PostDAO {
      * @param (id) id code of the post, int
      * @return (Post) a post object of Post.java entity
      */
+    @Override
     public Post getPostById(int id) {
         try {
             String query = "select * from Post where ID = ?";
@@ -94,6 +99,7 @@ public class PostDAO {
      * @param (title) a part of the post title used for searching leave blank if want to get all post, string
      * @return (int) total number of posts with similar title
      */
+    @Override
     public int countPost(String title) {
         int count = 0;
         try {
@@ -118,6 +124,7 @@ public class PostDAO {
      * @param (title) a part of the post title used for searching leave blank if want to get all post, string 
      * @return (List<Post>) page wanted to get
      */
+    @Override
     public List<Post> getListPosts(int pageIndex, String title) {
         List<Post> list = new ArrayList<>();
         try {
@@ -157,6 +164,7 @@ public class PostDAO {
      *
      * @param (id) id code of deleting post
      */
+    @Override
     public void deletePostById(int id) {
         try {
             String sql = "DELETE FROM [dbo].[Post] WHERE ID = ?";
