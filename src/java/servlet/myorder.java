@@ -1,8 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/*							
+ * Copyright(C) 2005,  <Name of Organization/Individual own the application>.							
+ * <ProjectCode/Short Name of Application> :							
+ *  <Full name of project code/Name or application>							
+ *							
+ * Record of change:							
+ * DATE                       Version             AUTHOR                       DESCRIPTION							
+ * 7/11/2021      1.0              Longchhe       first comment							
+ */							
 package servlet;
 
 import context.DBContext;
@@ -17,8 +21,11 @@ import javax.servlet.http.HttpSession;
 import models.Order;
 
 /**
+ * The class used to handle user's change password requests which receive user inputed
+ * data and send to lower levels to process
  *
- * @author sony
+ * @author HP
+ * @author Chu Hoang Long
  */
 public class myorder extends HttpServlet {
 
@@ -51,7 +58,11 @@ public class myorder extends HttpServlet {
             throws ServletException, IOException {
 
     }
-
+ /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
