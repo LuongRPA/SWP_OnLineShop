@@ -89,7 +89,6 @@ public class AddPostController extends HttpServlet {
         String content = request.getParameter("content");
         Date date = new Date();
 
-        DBContext db = new DBContext();
         PostDao dao = new PostDaoImp();
 
         Post post = new Post(title, image, content, date);

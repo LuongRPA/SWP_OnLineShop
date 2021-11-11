@@ -81,8 +81,7 @@ public class DeletePostController extends HttpServlet {
                 : request.getParameter("titleSearch"); //get current search text
         
         
-        String idPost = request.getParameter("id");
-        DBContext db = new DBContext();
+        String idPost = request.getParameter("id");;
         PostDao dao = new PostDaoImp();
         if (idPost == null) {
             response.sendRedirect("home"); // return home if wrong id

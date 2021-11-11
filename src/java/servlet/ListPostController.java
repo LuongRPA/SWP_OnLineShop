@@ -71,7 +71,6 @@ public class ListPostController extends HttpServlet {
         String titleSearch = request.getParameter("titleSearch") == null
                 ? ""
                 : request.getParameter("titleSearch"); // get current search text
-        DBContext db = new DBContext();
         PostDao dao = new PostDaoImp();
 
         /*

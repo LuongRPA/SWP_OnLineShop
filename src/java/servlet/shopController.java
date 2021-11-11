@@ -49,18 +49,17 @@ public class shopController extends HttpServlet {
             String nameProduct = request.getParameter("nameProduct");
             nameProduct = nameProduct == null ? "" : nameProduct.trim();
             
-            DBContext db = new DBContext();
             ProductDao dao = new ProductDaoImp();
             
-            //count rows
-            int rowCount = dao.getCount(nameProduct);
+            //count product
+            int count = dao.getCount(nameProduct);
             
             String page_raw = request.getParameter("txtPage");
             page_raw = (page_raw == null) ? "1" : page_raw; //get curent page number
             
             int pageIndex = Integer.parseInt(page_raw); 
             
-            int maxPage = rowCount / 6 + (rowCount % 6 > 0 ? 1 : 0);//get last page number
+            int maxPage = count / 6 + (count % 6 > 0 ? 1 : 0);//get last page number
 
             List<Product> list = dao.getListProduct(pageIndex, nameProduct); //get page
             

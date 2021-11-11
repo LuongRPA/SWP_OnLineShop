@@ -46,7 +46,6 @@ public class ProductDetailController extends HttpServlet {
         * get product id
         */
         String stringPid = request.getParameter("pid");
-        DBContext db = new DBContext();
         ProductDao dao = new ProductDaoImp();
         int pid = 0;
         try {

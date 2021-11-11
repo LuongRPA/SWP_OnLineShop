@@ -66,12 +66,12 @@ public class PostDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String id = request.getParameter("id");
         if (id == null) {
             response.sendRedirect("home");
         }
 
-        DBContext db = new DBContext();
         PostDao dao = new PostDaoImp();
 
         Post post = dao.getPostById(Integer.parseInt(id)); //get selected post
