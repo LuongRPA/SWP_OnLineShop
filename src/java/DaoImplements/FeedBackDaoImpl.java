@@ -1,7 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/15                   1.0                LongCH                       create file
  */
 package DaoImplements;
 
@@ -15,8 +19,11 @@ import java.util.ArrayList;
 import models.Feedback;
 
 /**
+ * The class contains method find update, delete, insert product from product
+ * and productinfo table indatabase.
  *
- * @author Dell
+ *
+ * @author Chu Hoang Long
  */
 public class FeedBackDaoImpl extends DBContext implements FeedBackDao {
 

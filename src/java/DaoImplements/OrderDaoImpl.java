@@ -1,7 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright(C) 2021,  FPT.
+ *  LTS:
+ *  LaptopShop
+ *
+ * Record of change:
+ * DATE                       Version             AUTHOR                       DESCRIPTION
+ * 2021/11/15                1.0                  LongCH                        create file
  */
 package DaoImplements;
 
@@ -13,10 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 import models.Order;
 
-/**
- *
- * @author Dell
- */
+ /**
+     * This method add a new product in to product table in database
+     *
+     * @param (id) Username of user, is a string type
+     * @param (name) password of said username, is string type
+     * @param (price) password of said username, is string type
+     * @param (image) password of said username, is string type
+     * @return 0 if no account, 1 if wrong password, 2 if account and password
+     * is available
+     */
 public class OrderDaoImpl extends DBContext implements OrderDAO{
      /**
      *used to add a new post into Post table in database
