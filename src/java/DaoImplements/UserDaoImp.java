@@ -160,4 +160,24 @@ public class UserDaoImp extends DBContext implements UserDao{
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+        public Users getUserByUsername(String username) {
+        try {
+            String sql = "select * from [User] where username = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Users u = new Users();
+                u.setUsername(rs.getString("username"));
+                u.setEmail(rs.getString("email"));
+                u.setPhone(rs.getString("phone"));
+                u.setGender(rs.getInt("gender"));
+                u.setAddress(rs.getString("address"));
+                return u;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
 }

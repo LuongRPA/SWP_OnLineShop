@@ -14,6 +14,10 @@ package servlet;
 
 import context.DBContext;
 import DaoImplements.DAO;
+import DaoImplements.FeedBackDaoImpl;
+import DaoImplements.UserDaoImp;
+import dao.FeedBackDao;
+import dao.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -71,14 +75,14 @@ public class DetailFeedback extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        UserDao udao = new UserDaoImp();
+        FeedBackDao fdao = new FeedBackDaoImpl();
 
         String userSelected = request.getParameter("userSelected");
         int id = Integer.parseInt(request.getParameter("id"));
-        Feedback feedback = dao.getFeedbackById(id);
+        Feedback feedback = fdao.getFeedbackById(id);
 
-        Users userDetail = dao.getUserByUsername(userSelected);
+        Users userDetail = udao.getUserByUsername(userSelected);
 
         request.setAttribute("feedback", feedback);
         request.setAttribute("userDetail", userDetail);

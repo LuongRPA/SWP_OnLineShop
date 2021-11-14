@@ -51,21 +51,7 @@ public class DAO {
 //            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-    public void addFeedback(Feedback feedback) {
-        java.util.Date utilDate = new java.util.Date();
-        Date now = new Date(utilDate.getTime());
 
-        try {
-            String sql = "insert into Feedback values(?,?,?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, feedback.getUsername());
-            ps.setString(2, feedback.getMessage());
-            ps.setDate(3, now);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
   
     public void addToContact(String username, String email, String phone, String contents) {
         try {
@@ -87,92 +73,14 @@ public class DAO {
         }
     }
 
-    public Feedback getFeedbackById(int id) {
-        try {
-            String sql = "select * from Feedback where ID = ? ";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Feedback f = new Feedback(
-                        rs.getInt("ID"),
-                        rs.getString("username"),
-                        rs.getString("message"),
-                        rs.getDate("createAt")
-                );
+   
 
-                return f;
-            }
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
-    public Users getUserByUsername(String username) {
-        try {
-            String sql = "select * from [User] where username = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Users u = new Users();
-                u.setUsername(rs.getString("username"));
-                u.setEmail(rs.getString("email"));
-                u.setPhone(rs.getString("phone"));
-                u.setGender(rs.getInt("gender"));
-                u.setAddress(rs.getString("address"));
-                return u;
-            }
-        } catch (Exception e) {
-        }
-        return null;
-    }
 
     
 
-    public int countFeedback() {
-        int count = 0;
-        try {
-            String query = "select count(*) from Feedback";
 
-            PreparedStatement ps = connection.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                count = rs.getInt(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-        }
-        return count;
-    }
 
-    public ArrayList<Feedback> getFeedbacks(int pageIndex) {
-        ArrayList<Feedback> list = new ArrayList<>();
-        try {
-            String query = "select * from("
-                    + "select ROW_NUMBER() over (order by ID desc) as rn, *\n"
-                    + "from Feedback"
-                    + ")as x\n"
-                    + "where rn between (?-1)*?+1"
-                    + "and ?*?";
 
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, pageIndex);
-            ps.setInt(2, 6);
-            ps.setInt(3, pageIndex);
-            ps.setInt(4, 6);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Feedback f = new Feedback(rs.getInt("ID"),
-                        rs.getString("username"), rs.getString("message"),
-                        rs.getDate("createAt"));
-                list.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
 
     public int getLastOrderID() {
         int orderID = 0;
@@ -214,89 +122,11 @@ public class DAO {
         return list;
     }
 
-    public int countHistory(String username) {
-        int count = 0;
-        try {
-            String query = "select count (*) from (select o.OrderID,\n"
-                    + "p.ProductName,\n"
-                    + "p.ProductPrice,\n"
-                    + "o.OrderQuantity,\n"
-                    + "o.OrderTotalPrice from Product p, [Order] o \n"
-                    + "where p.ProductID = o.productid and o.username like ?) as x";
+    
 
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%" + username + "%");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                count = rs.getInt(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-        }
-        return count;
+  
 
-    }
-
-    public Order getOrderById(int id) {
-        try {
-            String sql = "select [Order].OrderID, Product.ProductName, Product.ProductPrice, [Order].OrderQuantity, [Order].username,[Order].OrderTotalPrice \n"
-                    + "from [Order]\n"
-                    + "join Product \n"
-                    + "on [Order].ProductID = Product.ProductID and [Order].OrderID = ?";
-
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Order o = new Order(
-                        rs.getInt("OrderID"),
-                        rs.getString("ProductName"),
-                        rs.getInt("ProductPrice"),
-                        rs.getInt("OrderQuantity"),
-                        rs.getInt("OrderTotalPrice"),
-                        rs.getString("username"));
-                return o;
-            }
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
-    public List<Order> getHistory(int pageIndex, String username) {
-
-        List<Order> list = new ArrayList();
-        try {
-            String sql = "select * from(select ROW_NUMBER() over (order by history.OrderID desc) as rn, * \n"
-                    + "from (select o.OrderID,\n"
-                    + "p.ProductName,\n"
-                    + "p.ProductPrice,\n"
-                    + "o.OrderQuantity,\n"
-                    + "o.username,\n"
-                    + "o.OrderTotalPrice from Product p, [Order] o \n"
-                    + "where p.ProductID = o.productid and o.username like ?) as history )as x "
-                    + "where rn between (?-1)*?+1"
-                    + "and ?*?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, "%" + username + "%");
-            ps.setInt(2, pageIndex);
-            ps.setInt(3, 6);
-            ps.setInt(4, pageIndex);
-            ps.setInt(5, 6);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Order o = new Order(
-                        rs.getInt("OrderID"),
-                        rs.getString("ProductName"),
-                        rs.getInt("ProductPrice"),
-                        rs.getInt("OrderQuantity"),
-                        rs.getInt("OrderTotalPrice"),
-                        rs.getString("username"));
-                list.add(o);
-            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
+    
 
     public void Buy(int quantity, int total, int pID, String username) {
         try {
@@ -346,15 +176,7 @@ public class DAO {
 
     
 
-    public void deleteFeedback(int id) {
-        try {
-            String sql = "delete from [dbo].[Feedback] where ID = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (Exception e) {
-        }
-    }
+    
 
     public void deleteByUsername(String username) {
         try {

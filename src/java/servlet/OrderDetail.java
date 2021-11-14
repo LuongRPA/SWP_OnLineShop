@@ -14,6 +14,8 @@ package servlet;
 
 import context.DBContext;
 import DaoImplements.DAO;
+import DaoImplements.OrderDaoImpl;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -74,8 +76,7 @@ public class OrderDetail extends HttpServlet {
             response.sendRedirect("home");
         }
 
-        DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+       OrderDAO dao = new OrderDaoImpl();
 
         String orderId = request.getParameter("orderId");
 

@@ -14,6 +14,8 @@ package servlet;
 
 import context.DBContext;
 import DaoImplements.DAO;
+import DaoImplements.FeedBackDaoImpl;
+import dao.FeedBackDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -75,8 +77,7 @@ public class FeedbackListServlet extends HttpServlet {
             response.sendRedirect("home");
         }
         
-        DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        FeedBackDao dao = new FeedBackDaoImpl();
         
         int rowCount = dao.countFeedback();
         String page_raw = request.getParameter("txtPage");

@@ -14,6 +14,8 @@ package servlet;
 
 import context.DBContext;
 import DaoImplements.DAO;
+import DaoImplements.FeedBackDaoImpl;
+import dao.FeedBackDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -70,8 +72,8 @@ public class DeleteFeedback extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+        
+        FeedBackDao dao = new FeedBackDaoImpl();
         
         int id = Integer.parseInt(request.getParameter("id"));
         dao.deleteFeedback(id);

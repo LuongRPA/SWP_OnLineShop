@@ -17,9 +17,11 @@ public interface UserDao {
 
     public Users getAccountByUsername(String username);
 
-    public void signUpAccount(String username,String password, String email, String phone, int gender, String address);
-    
+    public void signUpAccount(String username, String password, String email, String phone, int gender, String address);
+
     public void UpdateMethod(Users us, String oldusername);
-    
+
     public void changePassword(String username, String newPassword);
+
+    public Users getUserByUsername(String username);
 }

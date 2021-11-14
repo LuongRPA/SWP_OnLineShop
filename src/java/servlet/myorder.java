@@ -11,6 +11,8 @@ package servlet;
 
 import context.DBContext;
 import DaoImplements.DAO;
+import DaoImplements.OrderDaoImpl;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -32,8 +34,8 @@ public class myorder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DBContext db = new DBContext();
-        DAO dao = new DAO(db);
+       
+       OrderDAO dao = new OrderDaoImpl();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
 
